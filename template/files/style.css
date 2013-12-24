@@ -1,0 +1,5 @@
+body {padding-top: 20px;}
+p { text-align: justify!important;}
+span.special {color: darkred}
+span.special:before {content: '{{'; display: inline}
+span.special:after {content: '}}'}

@@ -1,0 +1,169 @@
+<div class="span12">
+    <h2>Возможности шаблонизатора</h2>
+    <fieldset>
+        <legend>Системные</legend>
+        <div class="alert alert-info">При создании собственных шаблонов обязательно учитывайте следующие особенности:</div>
+        <p>
+            <code><span class="special">files</span></code> - возвращает путь к папке «files» шаблона. Имейте ввиду, что
+            простое прописывание в html-коде пути вида <code>&lt;img src=&quot;files/image.jpg&quot; /&gt;</code> приведет
+            к недоступности подключаемого ресурса. Необходимо использовать следующую конструкцию
+            <code>&lt;img src=&quot;<span class="special">files</span>/image.jpg&quot; /&gt;</code>
+        </p>
+        <p>
+            <code id="jquery"><span class="special">jquery</span></code> - подключает jQuery 1.9.1. Если васм нужна библиотека jQuery
+            подключайте ее именно таким образом. В противном случае возможны конфликты. Достаточно просто прописать
+            <span class="special">jquery</span> в любом месте кода. Библиотека автоматически подключится в тег head. Данный
+            тег подключит скрипт лишь единожды, повторный вызов не подключит скрипт второй раз
+        </p>
+        <p>
+            <code><span class="special">domain</span></code> - возвращает текущий домен. Текущее значение: «{{domain}}»
+        <p>
+            <code><span class="special">content</span></code> - В корне папки каждого домена есть главный файл index.html -
+            это шаблон основной страницы, в которую обычно включается шапка и подвал, а контент прочих страниц загружается из
+            отдельных файлов. Тег <span class="special">content</span> включает в содержимое главного файла index.html содержимое файла,
+            находящегося в папке pages. Т.е. запрос вида {{domain}}/page.html выведет внутри главного файла index.html содержимое файла
+            pages/page.html
+        </p>
+
+    </fieldset>
+    <fieldset>
+        <legend>Настраиваемые переменные</legend>
+        <p>
+            <code><span class="special">title</span></code> - возвращает заголовок, указанный в конфигурации проекта.
+            Текущее значение: «{{title}}»
+        </p>
+        <p>
+            <code><span class="special">price</span></code> - возвращает стоимость товара, указанную в конфигурации проекта.
+            Текущее значение: «{{price}}»
+        </p>
+        <p>
+            <code><span class="special">oldPrice</span></code> - возвращает старую стоимость товара, указанную в конфигурации проекта.
+            Текущее значение: «{{oldPrice}}»
+        </p>
+        <p>
+            <code><span class="special">meta_description</span></code> - возвращает мета-описание страницы, указаное в конфигурации проекта.
+            Текущее значение: «{{meta_description}}»
+        </p>
+        <p>
+            <code><span class="special">meta_keywords</span></code> - возвращает мета-ключевые слова страницы, указаные в конфигурации проекта.
+            Текущее значение: «{{meta_keywords}}»
+        </p>
+        <p>
+            <code><span class="special">email</span></code> - возвращает email администратора, указаный в конфигурации проекта.
+            Текущее значение: «{{email}}». Может принимать следующие параметры:
+
+        <ul>
+            <li><code><span class="special">email|protected</span></code> - возвращает email-адрес, защищенный от спам-ботов.
+                Выглядит на странице как обычно: «{{email|protected}}», но посмотрите код страницы
+            <li><code><span class="special">email="email@example.com"</span></code> - возвращает значение: «{{email="email@example.com"}}»</li>
+            <li><code><span class="special">email="email@example.com"|protected"</span></code> - возвращает произвольный email,
+                защищенный от спама: «{{email="email@example.com"|protected}}»</li>
+        </ul>
+        </p>
+        <p>
+            <code><span class="special">phone</span></code> - возвращает телефон, указаный в конфигурации проекта.
+            Текущее значение: «{{phone}}»
+        </p>
+        <div class="alert alert-info">
+            Вы можете переопределять переменные из фалйов шаблонов. Например, вы хотите изменить <code><span class="special">title</span></code>
+            для страницы <a href="/form.html">/form.html</a>. Для этого, в начале страницы form.html
+            пропишите <code><span class="special">title="Одна форма заказа"</span></code>
+        </div>
+    </fieldset>
+    <fieldset>
+        <legend>Дата и время</legend>
+        <p>
+            <code><span class="special">today</span></code> - возвращает текущую дату.
+            Текущее значение: «{{today}}»
+        </p>
+        <p>
+            <code><span class="special">year</span></code> - возвращает текущий год.
+            Текущее значение: «{{year}}»
+        </p>
+        <p>
+            <code><span class="special">from_to</span></code> - возвращает дипазон дат (по умолчанию за 7 дней), где последний день является текущим.
+            Текущее значение: «{{from_to}}»
+        </p>
+        <p>
+            <code><span class="special">from_to=5</span></code> - возвращает дипазон дат за 3 дня (параметр изменяемый).
+            Текущее значение: «{{from_to=5}}»
+        </p>
+        <p>
+            <code><span class="special">only_to</span></code> - возвращает текущую дату + 2 дня.
+            Текущее значение: «{{only_to}}»
+        </p>
+        <p>
+            <code><span class="special">only_to=5</span></code> - возвращает текущую дату + 5 дней (параметр изменяемый).
+            Текущее значение: «{{only_to=5}}»
+        </p>
+    </fieldset>
+    <fieldset>
+        <legend>География</legend>
+        <div class="alert alert-info">Если определить географию невозможно, то возвращается «Москва, Московская область»</div>
+        <p>
+            <code><span class="special">geo_city</span></code> - возвращает город пользователя по IP.
+            Текущее значение: «{{geo_city}}»
+        </p>
+        <p>
+            <code><span class="special">geo_region</span></code> - возвращает регион пользователя по IP.
+            Текущее значение: «{{geo_region}}»
+        </p>
+
+    </fieldset>
+    <fieldset>
+        <legend>Форма заказа</legend>
+        <div class="alert alert-info">
+            На одной странице возможно размещать не более двух форм заказа используя
+            <code><span class="special">form</span></code> и <code><span class="special">form_2</span></code> соответственно.
+            Сипользование одновременно двух <code><span class="special">form</span></code><code><span class="special">form</span></code>
+            или <code><span class="special">form_2</span></code><code><span class="special">form_2</span></code>
+            приведет к ошибкам
+        </div>
+        <ul>
+            <li><a href="/form.html">Одна форма заказа</a></li>
+            <li><a href="/form2.html">Две форма заказа</a></li>
+        </ul>
+    </fieldset>
+    <fieldset>
+        <legend>JavaScript, CSS и сторонние библиотеки</legend>
+        <p>О том, как подключить к проекту jQuery описано <a href="#jquery">выше</a></p>
+        <p>
+            Подключать сторонние, популярные библиотек типа bootstrap и moderniz мы рекомендуем с
+            <a href="http://api.yandex.ru/jslibs/">Яндекс CDN</a> - такой подход поможет вам обеспечить более высокую скорость
+            загрузки страниц, что повысит вашу конверсию и снизит нагрузку на наши сервера
+        </p>
+        <hr/>
+        <div class="alert alert-info">
+            Есть определенные вещи, которые очень часто используются в лендингах. Например, обратный отсчет времени для стимулирования
+            клиента заказать товар/услугу быстрее. Ниже приведены готовые скрипты, которые позволят вам проще подключать часто
+            требуемый функционал. Список будет пополняться.
+        </div>
+        <h5>Обратный отсчет времени</h5>
+        <p>
+            <code><span class="special">countdown.js</span></code> - возвращает ссылку на js-файл, который позволяет легко
+            подключить таймер обратного отсчета. Подключать скрипт нужно в теге <code>&lt;head&gt;</code>
+            <code>&lt;script src=&quot;<a href="{{countdown.js}}">{{countdown.js}}</a>&quot;&gt;&lt;/script&gt;</code>. Обратите внимание, что подключение
+            стоит осуществлять именно тегом <code><span class="special">countdown.js</span></code>, т.к. путь к скрипту может меняться.
+        </p>
+        <p>
+            Время отсчета таймера задается в секундах в любом месте страницы (или в вашем скрипте). В данном примере: 560 секунд
+            <code>
+                &lt;script&gt;window.leadvertex.seconds = <b>560</b>&lt;/script&gt;
+            </code>
+            <script>window.leadvertex.seconds = 560</script>
+        </p>
+        <p>
+            Далее, прописав классы к нужным элементам их содержимое будет заменяться соответствующими значениями:
+        <ul>
+            <li><code>.lv_countdown_days</code> Дней: <span class="lv_countdown_days"></span></li>
+            <li><code>.lv_countdown_hours</code> Часов: <span class="lv_countdown_hours"></span></li>
+            <li><code>.lv_countdown_minutes</code> Минут: <span class="lv_countdown_minutes"></span></li>
+            <li><code>.lv_countdown_seconds</code> Секунд: <span class="lv_countdown_seconds"></span></li>
+        </ul>
+        </p>
+        <p>
+            После истечения времени счетчик пойдет повторно
+        </p>
+
+    </fieldset>
+</div>

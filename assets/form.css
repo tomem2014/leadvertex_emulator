@@ -1,0 +1,58 @@
+#form,
+#form2 {
+  padding: 15px;
+  border: thin solid gray;
+  width: 50%;
+  margin: 0 auto;
+}
+#form div.field,
+#form2 div.field {
+  display: block;
+  margin-bottom: 8px;
+}
+#form div.field input[type=text],
+#form2 div.field input[type=text],
+#form div.field select,
+#form2 div.field select,
+#form div.field textarea,
+#form2 div.field textarea {
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -khtml-box-sizing: border-box;
+  display: block;
+  width: 100%;
+  padding: 5px;
+  height: 30px;
+  border: thin solid #bfbfbf;
+  border-radius: 4px;
+}
+#form div.field textarea,
+#form2 div.field textarea {
+  height: 80px;
+}
+#form div.field input[type=checkbox],
+#form2 div.field input[type=checkbox] {
+  margin: 0 8px 0 0;
+}
+#form div.field .form_label span.required,
+#form2 div.field .form_label span.required,
+#form div.field .form_field.error > *,
+#form2 div.field .form_field.error > *,
+#form div.field .form_error .errorMessage,
+#form2 div.field .form_error .errorMessage {
+  color: red;
+  font-size: 0.9em;
+}
+#form div.field .form_label label,
+#form2 div.field .form_label label {
+  display: inline;
+}
+#form .form_submit,
+#form2 .form_submit {
+  text-align: center;
+}
+#form .form_submit input,
+#form2 .form_submit input {
+  padding: 10px 20px;
+}

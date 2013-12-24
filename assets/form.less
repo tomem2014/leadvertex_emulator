@@ -1,0 +1,45 @@
+.box-sizing(@value:border-box) {
+  box-sizing: @value;
+  -webkit-box-sizing: @value;
+  -moz-box-sizing: @value;
+  -khtml-box-sizing: @value;
+}
+
+#form, #form2 {
+    padding: 15px;
+    border: thin solid gray;
+    width: 50%;
+    margin: 0 auto;
+    div.field {
+      display: block;
+      margin-bottom: 8px;
+      input[type=text], select, textarea {
+        .box-sizing();
+        display: block;
+        width: 100%;
+        padding: 5px;
+        height: 30px;
+        border: thin solid #bfbfbf;
+        border-radius: 4px;
+      }
+      textarea {
+        height: 80px;
+      }
+      input[type=checkbox] {
+        margin: 0 8px 0 0;
+      }
+      .form_label span.required, .form_field.error>*, .form_error .errorMessage {
+        color: red;
+        font-size: 0.9em;
+      }
+      .form_label label {
+        display: inline;
+      }
+    }
+    .form_submit {
+      text-align: center;
+      input {
+        padding: 10px 20px;
+      }
+    }
+}

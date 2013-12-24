@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="{{meta_description}}">
+    <meta name="keywords" content="{{meta_keywords}}">
+    <link rel="stylesheet" href="//yandex.st/bootstrap/2.3.2/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="{{files}}/style.css"/>
+    <title>{{title}}</title>
+    {{jquery}}
+    <script src="{{countdown.js}}"></script>
+</head>
+<body>
+<div class="container">
+
+    <!-- Main hero unit for a primary marketing message or call to action -->
+    <div class="hero-unit">
+        <h1>{{title}}</h1><br>
+        <p>{{meta_description}}</p>
+    </div>
+
+    <!-- Example row of columns -->
+    <div class="row">
+        {{content}}
+    </div>
+
+    <hr>
+
+    <footer>
+        <p>(C) {{title}}, {{year}}</p>
+    </footer>
+
+</div> <!-- /container -->
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+    (function (d, w, c) {
+        (w[c] = w[c] || []).push(function() {
+            try {
+                w.yaCounter22630525 = new Ya.Metrika({id:22630525,
+                    webvisor:true,
+                    clickmap:true,
+                    ut:"noindex"});
+            } catch(e) { }
+        });
+
+        var n = d.getElementsByTagName("script")[0],
+                s = d.createElement("script"),
+                f = function () { n.parentNode.insertBefore(s, n); };
+        s.type = "text/javascript";
+        s.async = true;
+        s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
+
+        if (w.opera == "[object Opera]") {
+            d.addEventListener("DOMContentLoaded", f, false);
+        } else { f(); }
+    })(document, window, "yandex_metrika_callbacks");
+</script>
+<noscript><div><img src="//mc.yandex.ru/watch/22630525?ut=noindex" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+</body>
+</html>
