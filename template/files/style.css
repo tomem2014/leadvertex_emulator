@@ -1,5 +1,9 @@
-body {padding-top: 20px;}
+body {padding-top: 30px;}
 p { text-align: justify!important;}
+
 span.special {color: darkred}
 span.special:before {content: '{{'; display: inline}
 span.special:after {content: '}}'}
+
+.hero-unit {padding: 25px;}
+#navbar-left {position: relative}

@@ -5,7 +5,7 @@ $formCss = false;
 
 function getMonthName($timestamp)
 {
-  $month = date('m', $timestamp);
+  $month = (int)date('m', $timestamp);
   $mArray = array(
     1 => 'января',
     2 => 'февраля',

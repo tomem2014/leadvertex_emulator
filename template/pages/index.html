@@ -1,9 +1,21 @@
+{{page="Главная страница"}}
 <div class="span12">
+
+    <div class="alert">
+        <h4>Эмулятор LeadVertex</h4>
+        <hr/>
+        <p>
+            У нас есть эмулятор нашего шаблонизатора, который позволит вам легко и быстро верстать лендинги у себя на компьютере.
+            Код эмулятора <a target="_blank" href="https://github.com/XAKEPEHOK/leadvertex_emulator/">доступен на GitHub</a>
+        </p>
+    </div>
+
     <h2>Возможности шаблонизатора</h2>
-    <fieldset>
+    <fieldset id="system">
         <legend>Системные</legend>
         <div class="alert alert-info">При создании собственных шаблонов обязательно учитывайте следующие особенности:</div>
         <p>
+            <b>Все подключаемые ресурсы (стили, скрипты, изображения) должны находиться в папке <code>files/</code></b><br>
             <code><span class="special">files</span></code> - возвращает путь к папке «files» шаблона. Имейте ввиду, что
             простое прописывание в html-коде пути вида <code>&lt;img src=&quot;files/image.jpg&quot; /&gt;</code> приведет
             к недоступности подключаемого ресурса. Необходимо использовать следующую конструкцию
@@ -26,7 +38,7 @@
         </p>
 
     </fieldset>
-    <fieldset>
+    <fieldset id="variables">
         <legend>Настраиваемые переменные</legend>
         <p>
             <code><span class="special">title</span></code> - возвращает заголовок, указанный в конфигурации проекта.
@@ -70,7 +82,7 @@
             пропишите <code><span class="special">title="Одна форма заказа"</span></code>
         </div>
     </fieldset>
-    <fieldset>
+    <fieldset id="datetime">
         <legend>Дата и время</legend>
         <p>
             <code><span class="special">today</span></code> - возвращает текущую дату.
@@ -97,7 +109,7 @@
             Текущее значение: «{{only_to=5}}»
         </p>
     </fieldset>
-    <fieldset>
+    <fieldset id="geo">
         <legend>География</legend>
         <div class="alert alert-info">Если определить географию невозможно, то возвращается «Москва, Московская область»</div>
         <p>
@@ -110,7 +122,7 @@
         </p>
 
     </fieldset>
-    <fieldset>
+    <fieldset id="forms">
         <legend>Форма заказа</legend>
         <div class="alert alert-info">
             На одной странице возможно размещать не более двух форм заказа используя
@@ -124,7 +136,7 @@
             <li><a href="/form2.html">Две форма заказа</a></li>
         </ul>
     </fieldset>
-    <fieldset>
+    <fieldset id="js">
         <legend>JavaScript, CSS и сторонние библиотеки</legend>
         <p>О том, как подключить к проекту jQuery описано <a href="#jquery">выше</a></p>
         <p>
@@ -165,5 +177,38 @@
             После истечения времени счетчик пойдет повторно
         </p>
 
+    </fieldset>
+    <fieldset id="faq">
+        <legend>FAQ</legend>
+        <div class="accordion" id="accordion">
+            <div class="accordion-group">
+                <div class="accordion-heading">
+                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                        Как мне изменить внешний вид формы заказа?
+                    </a>
+                </div>
+                <div id="collapseOne" class="accordion-body collapse">
+                    <div class="accordion-inner">
+                        Разметка формы заказа содержит достаточно вложенных друг в друга элементов, что позволяет придавать
+                        ей практически любой вид средствами CSS, будь то раположение полей в 2 колонки или изменение любых
+                        параметров отдельного поля.
+                        <br/>
+                        Кроме того, вы можете испольовать javascript для более тонкой кастомизации
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-group">
+                <div class="accordion-heading">
+                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                        Я хочу редактировать шаблон у себя на компьютере и видеть результат
+                    </a>
+                </div>
+                <div id="collapseTwo" class="accordion-body collapse">
+                    <div class="accordion-inner">
+                        Вы можете использовать <a href="https://github.com/XAKEPEHOK/leadvertex_emulator/">эмулятор</a> нашего шаблонизатора у себя на компьютере
+                    </div>
+                </div>
+            </div>
+        </div>
     </fieldset>
 </div>

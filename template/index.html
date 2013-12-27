@@ -6,23 +6,34 @@
     <meta name="description" content="{{meta_description}}">
     <meta name="keywords" content="{{meta_keywords}}">
     <link rel="stylesheet" href="//yandex.st/bootstrap/2.3.2/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="//yandex.st/bootstrap/2.3.2/css/bootstrap-responsive.min.css"/>
     <link rel="stylesheet" href="{{files}}/style.css"/>
-    <title>{{title}}</title>
+    <title>{{page}} - {{title}}</title>
     {{jquery}}
+    <script src="//yandex.st/bootstrap/2.3.2/js/bootstrap.min.js"></script>
     <script src="{{countdown.js}}"></script>
 </head>
 <body>
 <div class="container">
 
-    <!-- Main hero unit for a primary marketing message or call to action -->
     <div class="hero-unit">
         <h1>{{title}}</h1><br>
         <p>{{meta_description}}</p>
     </div>
 
-    <!-- Example row of columns -->
-    <div class="row">
-        {{content}}
+    <div class="row-fluid">
+        <div class="span3" id="navbar-left">
+            <ul class="nav nav-tabs nav-stacked">
+                <li><a href="#system">Системные</a></li>
+                <li><a href="#variables">Настраиваемые переменные</a></li>
+                <li><a href="#datetime">Дата и время</a></li>
+                <li><a href="#geo">География</a></li>
+                <li><a href="#forms">Форма заказа</a></li>
+                <li><a href="#js">JavaScript, CSS и сторонние библиотеки</a></li>
+                <li><a href="#faq">FAQ</a></li>
+            </ul>
+        </div>
+        <div class="span9">{{content}}</div>
     </div>
 
     <hr>
