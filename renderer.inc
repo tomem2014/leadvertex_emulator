@@ -240,6 +240,32 @@ function render($html)
   );
   $data = array_merge($default, $config, $system);
 
+  if (preg_match_all('~(?:\{\{price(?:(\+|\-)(\d+)(%)?)?\}\})~ui', $html, $prices_all, PREG_SET_ORDER) > 0) {
+    foreach ($prices_all as $matches) {
+      $price = $data['price'];
+      if (isset($matches[1])) {
+        $sum = $matches[2];
+        if (isset($matches[3])) $sum = round($price/100*$matches[2]);
+        if ($matches[1] == '-') $price = $price - $sum;
+        else $price = $price + $sum;
+      }
+      $html = str_ireplace($matches[0], $price, $html);
+    }
+  }
+
+  if (preg_match_all('~(?:\{\{oldPrice(?:(\+|\-)(\d+)(%)?)?\}\})~ui', $html, $prices_all, PREG_SET_ORDER) > 0) {
+    foreach ($prices_all as $matches) {
+      $price = $data['oldPrice'];
+      if (isset($matches[1])) {
+        $sum = $matches[2];
+        if (isset($matches[3])) $sum = round($price/100*$matches[2]);
+        if ($matches[1] == '-') $price = $price - $sum;
+        else $price = $price + $sum;
+      }
+      $html = str_ireplace($matches[0], $price, $html);
+    }
+  }
+
   if (stripos($html, '{{jquery}}') !== false) registerJquery();
 
   if (preg_match_all('~(?:\{\{from_to(?:=(\d+))?\}\})~ui', $html, $matches_all, PREG_SET_ORDER) > 0) {
