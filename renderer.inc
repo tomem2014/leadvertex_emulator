@@ -297,6 +297,7 @@ function render($html)
 
   $html = str_ireplace('{{geo_city}}', 'Москва', $html);
   $html = str_ireplace('{{geo_region}}', 'Московская область', $html);
+  $html = str_ireplace('{{order_number}}', rand(200,1000), $html);
 
 
   $html = str_ireplace('{{phone}}', '+7 (999) 777 77 77', $html);
