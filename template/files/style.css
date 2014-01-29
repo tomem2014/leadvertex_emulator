@@ -1,9 +1,43 @@
-body {padding-top: 30px;}
-p { text-align: justify!important;}
+body {
+    padding-top: 30px;
+}
 
-span.special {color: darkred}
-span.special:before {content: '{{'; display: inline}
-span.special:after {content: '}}'}
+p {
+    text-align: justify !important;
+}
 
-.hero-unit {padding: 25px;}
-#navbar-left {position: relative}
+span.special {
+    color: darkred
+}
+
+span.special:before {
+    content: '{{';
+    display: inline
+}
+
+span.special:after {
+    content: '}}'
+}
+
+.hero-unit {
+    padding: 25px;
+}
+
+#navbar-left {
+    position: relative
+}
+
+.order-form {
+    width: 50%;
+    margin: 0 auto;
+}
+
+.span5 .order-form {
+    width: auto;
+    margin: 0 auto;
+}
+
+.codeLi li {
+    margin-bottom: 20px;
+}
+

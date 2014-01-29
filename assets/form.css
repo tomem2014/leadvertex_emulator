@@ -1,21 +1,14 @@
-#form,
-#form2 {
+.order-form {
   padding: 15px;
   border: thin solid gray;
-  width: 50%;
-  margin: 0 auto;
 }
-#form div.field,
-#form2 div.field {
+.order-form div.field {
   display: block;
   margin-bottom: 8px;
 }
-#form div.field input[type=text],
-#form2 div.field input[type=text],
-#form div.field select,
-#form2 div.field select,
-#form div.field textarea,
-#form2 div.field textarea {
+.order-form div.field input[type=text],
+.order-form div.field select,
+.order-form div.field textarea {
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -27,32 +20,28 @@
   border: thin solid #bfbfbf;
   border-radius: 4px;
 }
-#form div.field textarea,
-#form2 div.field textarea {
+.order-form div.field textarea {
   height: 80px;
 }
-#form div.field input[type=checkbox],
-#form2 div.field input[type=checkbox] {
+.order-form div.field input[type=checkbox] {
   margin: 0 8px 0 0;
 }
-#form div.field .form_label span.required,
-#form2 div.field .form_label span.required,
-#form div.field .form_field.error > *,
-#form2 div.field .form_field.error > *,
-#form div.field .form_error .errorMessage,
-#form2 div.field .form_error .errorMessage {
+.order-form div.field .form_label span.required,
+.order-form div.field .form_field.error > *,
+.order-form div.field .form_error .errorMessage {
   color: red;
   font-size: 0.9em;
 }
-#form div.field .form_label label,
-#form2 div.field .form_label label {
+.order-form div.field .form_label label {
   display: inline;
 }
-#form .form_submit,
-#form2 .form_submit {
+.order-form div.field .form_sub_label label {
+  display: inline;
+  color: gray;
+}
+.order-form .form_submit {
   text-align: center;
 }
-#form .form_submit input,
-#form2 .form_submit input {
+.order-form .form_submit input {
   padding: 10px 20px;
 }

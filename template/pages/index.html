@@ -59,21 +59,37 @@
         <code><span class="special">price</span></code> - возвращает стоимость товара, указанную в конфигурации проекта.
         Текущее значение: «{{price}}»
     <ul>
-        <li><code><span class="special">price+280</span></code> - прибавляет к цене целое число. Текущее значение: «{{price+280}}»</li>
-        <li><code><span class="special">price-280</span></code> - вычитает из цены целое число. Текущее значение: «{{price-280}}»</li>
-        <li><code><span class="special">price+10%</span></code> - прибавляет к цене 10%. Текущее значение: «{{price+10%}}»</li>
-        <li><code><span class="special">price-10%</span></code> - вычитает из цены 10%. Текущее значение: «{{price-10%}}»</li>
+        <li><code><span class="special">price+280</span></code> - прибавляет к цене целое число. Текущее значение:
+            «{{price+280}}»
+        </li>
+        <li><code><span class="special">price-280</span></code> - вычитает из цены целое число. Текущее значение:
+            «{{price-280}}»
+        </li>
+        <li><code><span class="special">price+10%</span></code> - прибавляет к цене 10%. Текущее значение:
+            «{{price+10%}}»
+        </li>
+        <li><code><span class="special">price-10%</span></code> - вычитает из цены 10%. Текущее значение:
+            «{{price-10%}}»
+        </li>
     </ul>
     </p>
 
     <p>
-        <code><span class="special">oldPrice</span></code> - возвращает старую стоимость товара, указанную в
-        конфигурации проекта. Текущее значение: «{{oldPrice}}»
+        <code><span class="special">old_price</span></code> - возвращает старую стоимость товара, указанную в
+        конфигурации проекта. Текущее значение: «{{old_price}}»
     <ul>
-        <li><code><span class="special">oldPrice+280</span></code> - прибавляет к старой цене целое число. Текущее значение: «{{oldPrice+280}}»</li>
-        <li><code><span class="special">oldPrice-280</span></code> - вычитает из старой цены целое число. Текущее значение: «{{oldPrice-280}}»</li>
-        <li><code><span class="special">oldPrice+10%</span></code> - прибавляет к старой цене 10%. Текущее значение: «{{oldPrice+10%}}»</li>
-        <li><code><span class="special">oldPrice-10%</span></code> - вычитает из старой цены 10%. Текущее значение: «{{oldPrice-10%}}»</li>
+        <li><code><span class="special">old_price+280</span></code> - прибавляет к старой цене целое число. Текущее
+            значение: «{{old_price+280}}»
+        </li>
+        <li><code><span class="special">old_price-280</span></code> - вычитает из старой цены целое число. Текущее
+            значение: «{{old_price-280}}»
+        </li>
+        <li><code><span class="special">old_price+10%</span></code> - прибавляет к старой цене 10%. Текущее значение:
+            «{{old_price+10%}}»
+        </li>
+        <li><code><span class="special">old_price-10%</span></code> - вычитает из старой цены 10%. Текущее значение:
+            «{{old_price-10%}}»
+        </li>
     </ul>
     </p>
 
@@ -169,18 +185,14 @@
 </fieldset>
 <fieldset id="forms">
     <legend>Форма заказа</legend>
+    {{form2}}
     <div class="alert alert-info">
-        На одной странице возможно размещать не более двух форм заказа используя
-        <code><span class="special">form</span></code> и <code><span class="special">form_2</span></code>
-        соответственно.
-        Сипользование одновременно двух <code><span class="special">form</span></code><code><span
-            class="special">form</span></code>
-        или <code><span class="special">form_2</span></code><code><span class="special">form_2</span></code>
-        приведет к ошибкам
+        На одной странице возможно размещать не более девяти форм заказа используя
+        <code><span class="special">form</span></code>, <code><span class="special">form2</span></code>,
+        <code><span class="special">form3</span></code> ...
     </div>
     <ul>
-        <li><a href="/form.html">Одна форма заказа</a></li>
-        <li><a href="/form2.html">Две форма заказа</a></li>
+        <li><a href="/form.html">Примеры разных конфигураций формы заказа</a></li>
     </ul>
 </fieldset>
 <fieldset id="js">
@@ -204,12 +216,8 @@
     <h5>Обратный отсчет времени</h5>
 
     <p>
-        <code><span class="special">countdown.js</span></code> - возвращает ссылку на js-файл, который позволяет легко
-        подключить таймер обратного отсчета. Подключать скрипт нужно в теге <code>&lt;head&gt;</code>
-        <code>&lt;script src=&quot;<a href="{{countdown.js}}">{{countdown.js}}</a>&quot;&gt;&lt;/script&gt;</code>.
-        Обратите внимание, что подключение
-        стоит осуществлять именно тегом <code><span class="special">countdown.js</span></code>, т.к. путь к скрипту
-        может меняться.
+        <code><span class="special">countdown.js</span></code> - подключает скрипт таймера обратного отсчета.
+        {{countdown.js}}
     </p>
 
     <p>
@@ -245,6 +253,8 @@
             </div>
             <div id="collapseOne" class="accordion-body collapse">
                 <div class="accordion-inner">
+                    <b><a href="/form.html">Примеры разных конфигураций формы заказа</a></b>
+                    <br/>
                     Разметка формы заказа содержит достаточно вложенных друг в друга элементов, что позволяет придавать
                     ей практически любой вид средствами CSS, будь то раположение полей в 2 колонки или изменение любых
                     параметров отдельного поля.
