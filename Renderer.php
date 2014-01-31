@@ -9,7 +9,7 @@ class Renderer {
 
   private $_html;
 
-  const VERSION = 2.0;
+  const VERSION = 2.1;
 
   function __construct($data = array(), $fields = array(), $form = array(), $buttonText = 'Оформить заказ')
   {
@@ -168,8 +168,7 @@ class Renderer {
     $form = $this->form;
     $fields = $this->fields;
 
-    $html = '<form id="order-form'.$number.'" action="" method="post">';
-    $html.= '<div id="form'.$number.'" class="order-form">';
+    $html = '<form id="lv_form'.$number.'" class="lv-order-form" action="" method="post">';
 
     foreach ($fields as $field) {
       $name = $form[$field]['name'];
@@ -209,7 +208,6 @@ class Renderer {
       $html.='</div>';
     }
     $html.='<div class="form_submit"><input class="order-button" type="submit" name="yt0" value="'.$this->buttonText.'"></div>';
-    $html.= '</div>';
     $html.= '</form>';
     return $html;
   }

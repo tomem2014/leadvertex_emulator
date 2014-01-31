@@ -1,18 +1,22 @@
+.lv-order-form,
 .order-form {
   padding: 15px;
   border: thin solid gray;
 }
+.lv-order-form div.field,
 .order-form div.field {
   display: block;
   margin-bottom: 8px;
 }
-.order-form div.field input[type=text],
-.order-form div.field select,
-.order-form div.field textarea {
+.lv-order-form input[type=text],
+.order-form input[type=text],
+.lv-order-form select,
+.order-form select,
+.lv-order-form textarea,
+.order-form textarea {
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
-  -khtml-box-sizing: border-box;
   display: block;
   width: 100%;
   padding: 5px;
@@ -20,28 +24,37 @@
   border: thin solid #bfbfbf;
   border-radius: 4px;
 }
-.order-form div.field textarea {
+.lv-order-form textarea,
+.order-form textarea {
   height: 80px;
 }
-.order-form div.field input[type=checkbox] {
+.lv-order-form input[type=checkbox],
+.order-form input[type=checkbox] {
   margin: 0 8px 0 0;
 }
-.order-form div.field .form_label span.required,
-.order-form div.field .form_field.error > *,
-.order-form div.field .form_error .errorMessage {
+.lv-order-form .form_label span.required,
+.order-form .form_label span.required,
+.lv-order-form .form_field.error > *,
+.order-form .form_field.error > *,
+.lv-order-form .form_error .errorMessage,
+.order-form .form_error .errorMessage {
   color: red;
   font-size: 0.9em;
 }
-.order-form div.field .form_label label {
+.lv-order-form .form_label label,
+.order-form .form_label label {
   display: inline;
 }
-.order-form div.field .form_sub_label label {
+.lv-order-form .form_sub_label label,
+.order-form .form_sub_label label {
   display: inline;
   color: gray;
 }
+.lv-order-form .form_submit,
 .order-form .form_submit {
   text-align: center;
 }
+.lv-order-form .form_submit input,
 .order-form .form_submit input {
   padding: 10px 20px;
 }

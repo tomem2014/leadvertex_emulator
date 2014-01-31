@@ -27,12 +27,12 @@ span.special:after {
     position: relative
 }
 
-.order-form {
+.lv-order-form {
     width: 50%;
     margin: 0 auto;
 }
 
-.span5 .order-form {
+.span5 .lv-order-form {
     width: auto;
     margin: 0 auto;
 }

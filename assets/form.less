@@ -2,16 +2,16 @@
   box-sizing: @value;
   -webkit-box-sizing: @value;
   -moz-box-sizing: @value;
-  -khtml-box-sizing: @value;
 }
 
-.order-form {
+.lv-order-form, .order-form {
   padding: 15px;
   border: thin solid gray;
   div.field {
     display: block;
     margin-bottom: 8px;
-    input[type=text], select, textarea {
+  }
+  input[type=text], select, textarea {
       .box-sizing();
       display: block;
       width: 100%;
@@ -20,24 +20,23 @@
       border: thin solid #bfbfbf;
       border-radius: 4px;
     }
-    textarea {
+  textarea {
       height: 80px;
     }
-    input[type=checkbox] {
+  input[type=checkbox] {
       margin: 0 8px 0 0;
     }
-    .form_label span.required, .form_field.error > *, .form_error .errorMessage {
+  .form_label span.required, .form_field.error > *, .form_error .errorMessage {
       color: red;
       font-size: 0.9em;
     }
-    .form_label label {
+  .form_label label {
       display: inline;
     }
-    .form_sub_label label {
+  .form_sub_label label {
       display: inline;
       color: gray;
     }
-  }
   .form_submit {
     text-align: center;
     input {
