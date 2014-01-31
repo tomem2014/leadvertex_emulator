@@ -1,19 +1,14 @@
-.lv-order-form,
-.order-form {
+.lv-order-form {
   padding: 15px;
   border: thin solid gray;
 }
-.lv-order-form div.field,
-.order-form div.field {
+.lv-order-form div.lv-row {
   display: block;
   margin-bottom: 8px;
 }
 .lv-order-form input[type=text],
-.order-form input[type=text],
 .lv-order-form select,
-.order-form select,
-.lv-order-form textarea,
-.order-form textarea {
+.lv-order-form textarea {
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -23,38 +18,30 @@
   height: 30px;
   border: thin solid #bfbfbf;
   border-radius: 4px;
+  color: inherit;
 }
-.lv-order-form textarea,
-.order-form textarea {
+.lv-order-form textarea {
   height: 80px;
 }
-.lv-order-form input[type=checkbox],
-.order-form input[type=checkbox] {
+.lv-order-form input[type=checkbox] {
+  display: inline-block;
   margin: 0 8px 0 0;
 }
-.lv-order-form .form_label span.required,
-.order-form .form_label span.required,
-.lv-order-form .form_field.error > *,
-.order-form .form_field.error > *,
-.lv-order-form .form_error .errorMessage,
-.order-form .form_error .errorMessage {
+.lv-order-form .lv-row-error {
   color: red;
-  font-size: 0.9em;
 }
-.lv-order-form .form_label label,
-.order-form .form_label label {
+.lv-order-form .lv-label span.required {
+  color: red;
+}
+.lv-order-form .lv-label label {
   display: inline;
 }
-.lv-order-form .form_sub_label label,
-.order-form .form_sub_label label {
+.lv-order-form .lv-sub-label label {
   display: inline;
   color: gray;
 }
-.lv-order-form .form_submit,
-.order-form .form_submit {
-  text-align: center;
-}
-.lv-order-form .form_submit input,
-.order-form .form_submit input {
+.lv-order-form .lv-order-button {
+  display: block;
   padding: 10px 20px;
+  margin: 0 auto;
 }
