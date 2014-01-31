@@ -4,43 +4,46 @@
   -moz-box-sizing: @value;
 }
 
-.lv-order-form, .order-form {
+.lv-order-form {
   padding: 15px;
   border: thin solid gray;
-  div.field {
+  div.lv-row {
     display: block;
     margin-bottom: 8px;
   }
   input[type=text], select, textarea {
-      .box-sizing();
-      display: block;
-      width: 100%;
-      padding: 5px;
-      height: 30px;
-      border: thin solid #bfbfbf;
-      border-radius: 4px;
-    }
+    .box-sizing();
+    display: block;
+    width: 100%;
+    padding: 5px;
+    height: 30px;
+    border: thin solid #bfbfbf;
+    border-radius: 4px;
+    color: inherit;
+  }
   textarea {
-      height: 80px;
-    }
+    height: 80px;
+  }
   input[type=checkbox] {
-      margin: 0 8px 0 0;
-    }
-  .form_label span.required, .form_field.error > *, .form_error .errorMessage {
-      color: red;
-      font-size: 0.9em;
-    }
-  .form_label label {
-      display: inline;
-    }
-  .form_sub_label label {
-      display: inline;
-      color: gray;
-    }
-  .form_submit {
-    text-align: center;
-    input {
-      padding: 10px 20px;
-    }
+    display: inline-block;
+    margin: 0 8px 0 0;
+  }
+  .lv-row-error {
+    color: red;
+  }
+  .lv-label span.required {
+    color: red;
+  }
+  .lv-label label {
+    display: inline;
+  }
+  .lv-sub-label label {
+    display: inline;
+    color: gray;
+  }
+  .lv-order-button {
+    display: block;
+    padding: 10px 20px;
+    margin: 0 auto;
   }
 }

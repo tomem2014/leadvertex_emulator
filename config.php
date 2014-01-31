@@ -68,7 +68,7 @@ $form = array(
   'phone' => array(
     'name' => 'Телефон.',
     'message' => 'Телефон указан неверно',
-    'error' => false,
+    'error' => true,
     'type' => 'string',
     'pattern' => '',
   ),

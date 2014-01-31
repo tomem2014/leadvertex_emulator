@@ -9,7 +9,7 @@ class Renderer {
 
   private $_html;
 
-  const VERSION = 2.1;
+  const VERSION = 2.2;
 
   function __construct($data = array(), $fields = array(), $form = array(), $buttonText = 'Оформить заказ')
   {
@@ -168,29 +168,29 @@ class Renderer {
     $form = $this->form;
     $fields = $this->fields;
 
-    $html = '<form id="lv_form'.$number.'" class="lv-order-form" action="" method="post">';
+    $html = '<form id="lv-form'.$number.'" class="lv-order-form" action="" method="post">';
 
     foreach ($fields as $field) {
       $name = $form[$field]['name'];
       $message = $form[$field]['message'];
       $error = $form[$field]['error'] ? '' : 'display:none;';
-      $errorClass = $form[$field]['error'] ? 'error' : '';
+      $errorClass = $form[$field]['error'] ? ' lv-row-error ' : '';
       $type = $form[$field]['type'];
       $pattern = $form[$field]['pattern'];
 
-      $html.='<div class="field field_'.$field.' '.($type == 'checkbox' ? 'field_checkbox' : 'field_input').'">';
+      $html.='<div class="lv-row lv-row-'.$field.' '.($type == 'checkbox' ? 'lv-row-checkbox' : 'lv-row-input').$errorClass.'">';
       if ($type == 'checkbox') {
-        $html.='<div class="form_label '.$errorClass.'">';
-        $html.='<input name="Order['.$field.']" id="form'.$number.'_'.$field.'" value="1" type="checkbox">';
-        $html.='<label for="form'.$number.'_'.$field.'">С условиями покупки согласен</label>';
+        $html.='<div class="lv-label">';
+        $html.='<input name="Order['.$field.']" id="lv-form'.$number.'-'.$field.'" value="1" type="checkbox">';
+        $html.='<label for="lv-form'.$number.'-'.$field.'">С условиями покупки согласен</label>';
         $html.='</div>';
       }
       else {
-        $html.='<div class="form_label '.$errorClass.'"><label for="form'.$number.'_'.$field.'">'.$name.'</label></div>';
-        $html.='<div class="form_field '.$errorClass.'">';
+        $html.='<div class="lv-label"><label for="form'.$number.'_'.$field.'">'.$name.'</label></div>';
+        $html.='<div class="lv-field">';
 
         if ($type == 'dropdown') {
-          $html.='<select data-label="'.$name.'" name="Order['.$field.']" id="form'.$number.'_'.$field.'">';
+          $html.='<select data-label="'.$name.'" name="Order['.$field.']" id="lv-form'.$number.'-'.$field.'">';
           $items = explode(',',$pattern);
           foreach ($items as $item) {
             $item = trim($item);
@@ -199,15 +199,15 @@ class Renderer {
           }
           $html.='</select>';
         }
-        elseif ($type == 'string') $html.='<input data-label="'.$name.'" name="Order['.$field.']" id="form'.$number.'_'.$field.'" type="text" maxlength="255" />';
-        elseif ($type == 'text') $html.='<textarea data-label="'.$name.'" name="Order['.$field.']" id="form'.$number.'_'.$field.'"></textarea>';
+        elseif ($type == 'string') $html.='<input data-label="'.$name.'" name="Order['.$field.']" id="lv-form'.$number.'-'.$field.'" type="text" maxlength="255" />';
+        elseif ($type == 'text') $html.='<textarea data-label="'.$name.'" name="Order['.$field.']" id="lv-form'.$number.'-'.$field.'"></textarea>';
 
         $html.='</div>';
       }
-      $html.='<div class="form_error"><div class="errorMessage" id="form'.$number.'_'.$field.'_em_" style="'.$error.'">'.$message.'</div></div>';
+      $html.='<div class="lv-error"><div class="lv-error-text" id="lv-form'.$number.'-'.$field.'_em_" style="'.$error.'">'.$message.'</div></div>';
       $html.='</div>';
     }
-    $html.='<div class="form_submit"><input class="order-button" type="submit" name="yt0" value="'.$this->buttonText.'"></div>';
+    $html.='<div class="lv-form-submit"><input class="lv-order-button" type="submit" name="yt0" value="'.$this->buttonText.'"></div>';
     $html.= '</form>';
     return $html;
   }
@@ -294,6 +294,7 @@ class Renderer {
     }, $this->_html);
     if (!empty($forms)) {
       $this->registerFile('/assets/jquery-1.9.1.js',true);
+      $this->registerFile('/assets/placeholders.min.js');
       $this->registerFile('/assets/formHelper.js');
       $this->registerFile('/assets/form.css');
     }
