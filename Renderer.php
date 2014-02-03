@@ -9,7 +9,7 @@ class Renderer {
 
   private $_html;
 
-  const VERSION = 2.2;
+  const VERSION = 2.21;
 
   function __construct($data = array(), $fields = array(), $form = array(), $buttonText = 'Оформить заказ')
   {
@@ -18,6 +18,7 @@ class Renderer {
         'name' => 'Ф.И.О.',
         'message' => 'Ф.И.О. заполненно неверно',
         'error' => false,
+        'required' => false,
         'type' => 'string',
         'pattern' => '',
       ),
@@ -25,6 +26,7 @@ class Renderer {
         'name' => 'Страна',
         'message' => 'Страна указана неверно',
         'error' => false,
+        'required' => false,
         'type' => 'dropdown',
         'pattern' => 'Россия, Украина, Казахстан',
       ),
@@ -32,6 +34,7 @@ class Renderer {
         'name' => 'Индекс',
         'message' => 'Почтовый индекс неверн',
         'error' => false,
+        'required' => false,
         'type' => 'string',
         'pattern' => '',
       ),
@@ -39,6 +42,7 @@ class Renderer {
         'name' => 'Край/регион/область',
         'message' => 'Край/регион/область заполненно неверно',
         'error' => false,
+        'required' => false,
         'type' => 'string',
         'pattern' => '',
       ),
@@ -46,6 +50,7 @@ class Renderer {
         'name' => 'Город',
         'message' => 'Город заполненно неверно',
         'error' => false,
+        'required' => false,
         'type' => 'string',
         'pattern' => '',
       ),
@@ -53,6 +58,7 @@ class Renderer {
         'name' => 'Адрес',
         'message' => 'Адрес указан неверно',
         'error' => false,
+        'required' => false,
         'type' => 'text',
         'pattern' => '',
       ),
@@ -60,6 +66,7 @@ class Renderer {
         'name' => 'Телефон.',
         'message' => 'Телефон указан неверно',
         'error' => false,
+        'required' => false,
         'type' => 'string',
         'pattern' => '',
       ),
@@ -67,6 +74,7 @@ class Renderer {
         'name' => 'Email',
         'message' => 'Email заполненно неверно',
         'error' => false,
+        'required' => false,
         'type' => 'string',
         'pattern' => '',
       ),
@@ -74,6 +82,7 @@ class Renderer {
         'name' => 'Количество',
         'message' => 'Количество указано неверно',
         'error' => false,
+        'required' => false,
         //Меняь 'type' и 'pattern' ЗАПРЕЩЕНО!!!
         'type' => 'dropdown',
         'pattern' => '1, 2, 3, 4, 5, 6, 7, 8, 9, 10',
@@ -82,6 +91,7 @@ class Renderer {
         'name' => 'Комментарий',
         'message' => 'Комментарий заполненн неверно',
         'error' => false,
+        'required' => false,
         'type' => 'text',
         'pattern' => '',
       ),
@@ -89,6 +99,7 @@ class Renderer {
         'name' => 'Согласен на обработку персональных данных',
         'message' => 'Для оформления заказа вы должны дать согласие на обработку своих персональных данных',
         'error' => false,
+        'required' => false,
         'type' => 'checkbox',
         'pattern' => '',
       ),
@@ -96,6 +107,7 @@ class Renderer {
         'name' => 'Ф.И.О.',
         'message' => 'С условиями покупки согласен',
         'error' => false,
+        'required' => false,
         'type' => 'checkbox',
         'pattern' => '',
       ),
@@ -103,6 +115,7 @@ class Renderer {
         'name' => 'Доп.поле #1',
         'message' => 'Доп.поле #1 заполненно неверно',
         'error' => false,
+        'required' => false,
         'type' => 'string',
         'pattern' => '',
       ),
@@ -110,6 +123,7 @@ class Renderer {
         'name' => 'Доп.поле #2',
         'message' => 'Доп.поле #2 заполненно неверно',
         'error' => false,
+        'required' => false,
         'type' => 'string',
         'pattern' => '',
       ),
@@ -117,6 +131,7 @@ class Renderer {
         'name' => 'Доп.поле #3',
         'message' => 'Доп.поле #3 заполненно неверно',
         'error' => false,
+        'required' => false,
         'type' => 'string',
         'pattern' => '',
       ),
@@ -124,6 +139,7 @@ class Renderer {
         'name' => 'Доп.поле #4',
         'message' => 'Доп.поле #4 заполненно неверно',
         'error' => false,
+        'required' => false,
         'type' => 'string',
         'pattern' => '',
       ),
@@ -175,22 +191,23 @@ class Renderer {
       $message = $form[$field]['message'];
       $error = $form[$field]['error'] ? '' : 'display:none;';
       $errorClass = $form[$field]['error'] ? ' lv-row-error ' : '';
+      $required = $form[$field]['required'];
       $type = $form[$field]['type'];
       $pattern = $form[$field]['pattern'];
 
-      $html.='<div class="lv-row lv-row-'.$field.' '.($type == 'checkbox' ? 'lv-row-checkbox' : 'lv-row-input').$errorClass.'">';
+      $html.='<div class="lv-row lv-row-'.$field.' '.($type == 'checkbox' ? 'lv-row-checkbox' : 'lv-row-input').$errorClass.'" data-name="'.$field.'" data-required="'.(int)$required.'">';
       if ($type == 'checkbox') {
         $html.='<div class="lv-label">';
-        $html.='<input name="Order['.$field.']" id="lv-form'.$number.'-'.$field.'" value="1" type="checkbox">';
+        $html.='<input name="Order['.$field.']" id="lv-form'.$number.'-'.$field.'" value="1" type="checkbox" data-required="'.(int)$required.'">';
         $html.='<label for="lv-form'.$number.'-'.$field.'">С условиями покупки согласен</label>';
         $html.='</div>';
       }
       else {
-        $html.='<div class="lv-label"><label for="form'.$number.'_'.$field.'">'.$name.'</label></div>';
+        $html.='<div class="lv-label"><label for="form'.$number.'_'.$field.'">'.$name.($required ? ' <span class="required">*</span>' : '').'</label></div>';
         $html.='<div class="lv-field">';
 
         if ($type == 'dropdown') {
-          $html.='<select data-label="'.$name.'" name="Order['.$field.']" id="lv-form'.$number.'-'.$field.'">';
+          $html.='<select data-label="'.$name.'" name="Order['.$field.']" id="lv-form'.$number.'-'.$field.'" data-required="'.(int)$required.'">';
           $items = explode(',',$pattern);
           foreach ($items as $item) {
             $item = trim($item);
@@ -199,8 +216,8 @@ class Renderer {
           }
           $html.='</select>';
         }
-        elseif ($type == 'string') $html.='<input data-label="'.$name.'" name="Order['.$field.']" id="lv-form'.$number.'-'.$field.'" type="text" maxlength="255" />';
-        elseif ($type == 'text') $html.='<textarea data-label="'.$name.'" name="Order['.$field.']" id="lv-form'.$number.'-'.$field.'"></textarea>';
+        elseif ($type == 'string') $html.='<input data-label="'.$name.'" name="Order['.$field.']" id="lv-form'.$number.'-'.$field.'" type="text" maxlength="255" data-required="'.(int)$required.'"/>';
+        elseif ($type == 'text') $html.='<textarea data-label="'.$name.'" name="Order['.$field.']" id="lv-form'.$number.'-'.$field.'" data-required="'.(int)$required.'"></textarea>';
 
         $html.='</div>';
       }

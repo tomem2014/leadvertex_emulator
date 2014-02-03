@@ -14,6 +14,13 @@ window.leadvertex.form.subLabel = function(field,text,form){
     });
 };
 
+window.leadvertex.form.buttonText = function(text,form){
+    if (!form) form = ''; else if (form<2) form = '';
+    $(document).ready(function(){
+        $('#lv-form'+form +' .lv-order-button').val(text);
+    });
+}
+
 window.leadvertex.form.placeholder = function(field,placeholder,form){
     if (!form) form = ''; else if (form<2) form = '';
     $(document).ready(function(){
@@ -47,6 +54,23 @@ window.leadvertex.form.validationByAlert = function(form){
         var $form = $('#lv-form'+form);
         $form.attr('data-validation-by-alert',1);
         $form.find('.lv-error').hide();
+    });
+}
+
+window.leadvertex.form.showOnly = function (fields,form){
+    if (!form) form = ''; else if (form<2) form = '';
+    $(document).ready(function(){
+        var $form = $('#lv-form'+form);
+        $form.find('.lv-row').each(function(i,e){
+            var name = $(e).attr('data-name');
+            var notShow = $.inArray(name,fields)==-1;
+            var isRequired = $(e).attr('data-required');
+            if (name == 'checkboxPersonalData' || name == 'checkboxAgreeTerms') {
+                $(e).prop('checked', true);
+                isRequired = 0;
+            }
+            if (notShow && isRequired==0) $(e).hide();
+        });
     });
 }
 

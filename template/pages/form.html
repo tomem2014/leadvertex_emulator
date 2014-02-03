@@ -77,6 +77,10 @@
                 Устанавливает заданный текст под полем «address» как пояснение к полю
             </li>
             <li>
+                <code class="sourceCode">&lt;script&gt;window.leadvertex.form.buttonText('Заказать сейчас',2);&lt;/script&gt;</code>
+                Устанавливает текст кнопки оформления заказа для формы 2
+            </li>
+            <li>
                 <code class="sourceCode">&lt;script&gt;window.leadvertex.form.placeholder('fio','Фамилия Имя Отчество',2);&lt;/script&gt;</code>
                 Устанавливает placeholder для поля «fio». Placeholder - это текст, написанный в поле, который исчезает после того, как пользователь
                 начинает что-то писать в нем
@@ -90,6 +94,12 @@
                 <code class="sourceCode">&lt;script&gt;window.leadvertex.form.validationByAlert(2);&lt;/script&gt;</code>
                 Отображает сообщения об ошибках в заполнении формы во всплывающем сообщении, после нажатия кнопки оформления заказа
                 <a href="#example7">(Пример)</a>
+            </li>
+            <li>
+                <code class="sourceCode">&lt;script&gt;window.leadvertex.form.showOnly(['fio','phone'],2);&lt;/script&gt;</code>
+                Скрывает все поля формы, кроме полей «fio» и «phone» в форме 2. Поля «Согласен на обработку персональных данных»
+                и «С условиями покупки согласен» скрываются всегда
+                <a href="#example8">(Пример)</a>
             </li>
             <li>
                 Перемещение блоков с данными (например, ценой) осуществляется следующим образом (<a href="#example5">пример</a>):
@@ -144,22 +154,28 @@
                         /* Альтернативный заголовок поля fio */
                         window.leadvertex.form.label('fio','Как вас зовут?',2);
 
-                        /* Placeholder для поля fio */
-                        window.leadvertex.form.placeholder('fio','Ф.И.О',2);
-
                         /* Пояснение под полем address */
-                        window.leadvertex.form.subLabel('address','Пример: ул. Академика Королева 12',2);
+                        window.leadvertex.form.subLabel('address','Пример: ул. Академика Королева',2);
+
+                        /* Текст кнопки оформления заказа */
+                        window.leadvertex.form.buttonText('Заказать сейчас!',2);
+
+                        /* Placeholder для поля fio */
+                        window.leadvertex.form.placeholder('fio','Фамилия Имя Отчество',2);
                     &lt;/script&gt;
                 </pre>
                 <script>
                     /* Альтернативный заголовок поля fio */
                     window.leadvertex.form.label('fio','Как вас зовут?',2);
 
-                    /* Placeholder для поля fio */
-                    window.leadvertex.form.placeholder('fio','Фамилия Имя Отчество',2);
-
                     /* Пояснение под полем address */
                     window.leadvertex.form.subLabel('address','Пример: ул. Академика Королева',2);
+
+                    /* Текст кнопки оформления заказа */
+                    window.leadvertex.form.buttonText('Заказать сейчас!',2);
+
+                    /* Placeholder для поля fio */
+                    window.leadvertex.form.placeholder('fio','Фамилия Имя Отчество',2);
                 </script>
             </div>
         </div>
@@ -228,7 +244,6 @@
 
         <hr/>
         <h4 id="example5">Произвольный блок данных между полями</h4>
-        <p></p>
         <div class="row-fluid">
             <div class="span5">
                 {{form5}}
@@ -304,6 +319,24 @@
                     &lt;script&gt;window.leadvertex.form.validationByAlert(7);&lt;/script&gt;
                 </pre>
                 <script>window.leadvertex.form.validationByAlert(7);</script>
+            </div>
+        </div>
+
+        <hr/>
+        <h4 id="example8">Отображать только заданные поля</h4>
+        <p>
+            Скрывает все поля формы, кроме указанных в аргументах функции и полей, обязательных для заполнения.
+            Поля «Согласен на обработку персональных данных» и «С условиями покупки согласен» скрываются всегда
+        </p>
+        <div class="row-fluid">
+            <div class="span5">{{form8}}</div>
+            <div class="span7">
+                <h5>Код формы</h5>
+                <pre class="sourceCode">
+                    [[form8]]
+                    &lt;script&gt;window.leadvertex.form.showOnly(['fio','phone'],8);&lt;/script&gt;
+                </pre>
+                <script>window.leadvertex.form.showOnly(['fio','phone'],8);</script>
             </div>
         </div>
 
