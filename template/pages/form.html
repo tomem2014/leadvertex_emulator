@@ -340,5 +340,56 @@
     </div>
 </div>
 
+<hr/>
+<h4 id="example9">Форма во всплывающем окне</h4>
+<p>
+    Используется виджет <a href="http://jqueryui.com/dialog/">Dialog jQuery UI</a>. Скопируйте код, указав в переменной <code>formNumber</code> номер формы, и допишите к
+    кнопке/ссылке, которая будет открывать форму класс <code>lv-popup-form</code>. Например,
+<pre class="sourceCode">&lt;button class=&quot;lv-popup-form&quot;&gt;&#1047;&#1072;&#1082;&#1072;&#1079;&#1072;&#1090;&#1100; &#1089;&#1077;&#1081;&#1095;&#1072;&#1089;!!!&lt;/button&gt;</pre>
+</p>
+<hr/>
+<div class="row-fluid">
+    <div class="span5">
+        <button class="btn btn-large lv-popup-form">Заказать сейчас!!!</button>
+        {{form9}}
+        <script src="http://yandex.st/jquery-ui/1.10.4/jquery-ui.js"></script>
+        <link rel="stylesheet" href="http://yandex.st/jquery-ui/1.10.4/themes/base/jquery-ui.min.css"/>
+        <script>
+            var formNumber = 9;
+            window.leadvertex.form.placeholderOnly(formNumber);
+            $(document).ready(function(){
+                $('#lv-form'+formNumber).dialog({
+                    autoOpen: false,
+                    title: 'Оформление заказа',
+                    width: '450',
+                    modal: true
+                });
+                $('.lv-popup-form').click(function(){$('#lv-form'+formNumber).dialog('open')});
+            });
+        </script>
+    </div>
+    <div class="span7">
+        <h5>Код формы</h5>
+                <pre class="sourceCode">
+                    [[form9]]
+                    &lt;script src=&quot;http://yandex.st/jquery-ui/1.10.4/jquery-ui.js&quot;&gt;&lt;/script&gt;
+                    &lt;link rel=&quot;stylesheet&quot; href=&quot;http://yandex.st/jquery-ui/1.10.4/themes/base/jquery-ui.min.css&quot;/&gt;
+                    &lt;script&gt;
+                        var formNumber = 9;
+                        window.leadvertex.form.placeholderOnly(formNumber);
+                        $(document).ready(function(){
+                            $('#lv-form'+formNumber).dialog({
+                                autoOpen: false,
+                                title: '&#1054;&#1092;&#1086;&#1088;&#1084;&#1083;&#1077;&#1085;&#1080;&#1077; &#1079;&#1072;&#1082;&#1072;&#1079;&#1072;',
+                                width: '450',
+                                modal: true
+                            });
+                            $('.lv-popup-form').click(function(){$('#lv-form'+formNumber).dialog('open')});
+                        });
+                    &lt;/script&gt;
+                </pre>
+    </div>
+</div>
+
 </fieldset>
 </div>
