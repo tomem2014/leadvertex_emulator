@@ -9,7 +9,7 @@ class Renderer {
 
   private $_html;
 
-  const VERSION = 2.21;
+  const VERSION = 2.22;
 
   function __construct($data = array(), $fields = array(), $form = array(), $buttonText = 'Оформить заказ')
   {
@@ -170,11 +170,11 @@ class Renderer {
     $ext = substr(strrchr($filename, '.'), 1);
     if (!isset($this->scripts[$filename]) || 1==1) {
       if ($onTop === true) {
-        if ($ext == 'js') $this->_html = str_ireplace('<head>', '<head><script type="text/javascript" src="'.$filename.'"></script>', $this->_html);
-        else $this->_html = str_ireplace('<head>', '<head><link rel="stylesheet" href="'.$filename.'"/>', $this->_html);
+        if ($ext == 'js') $this->_html = str_ireplace('<title', '<head><script type="text/javascript" src="'.$filename.'"><title', $this->_html);
+        else $this->_html = str_ireplace('<title', '<link rel="stylesheet" href="'.$filename.'"/><title', $this->_html);
       } else {
-        if ($ext == 'js') $this->_html = str_ireplace('</head>', '<script type="text/javascript" src="'.$filename.'"></script></head>', $this->_html);
-        else $this->_html = str_ireplace('</head>', '<link rel="stylesheet" href="'.$filename.'"/></head>', $this->_html);
+        if ($ext == 'js') $this->_html = str_ireplace('<title', '<script type="text/javascript" src="'.$filename.'"></script><title', $this->_html);
+        else $this->_html = str_ireplace('<title', '<link rel="stylesheet" href="'.$filename.'"/><title', $this->_html);
       }
       $this->scripts[$filename] = $filename;
     }
