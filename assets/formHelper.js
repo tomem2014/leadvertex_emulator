@@ -1,4 +1,9 @@
 if (!window.leadvertex) window.leadvertex = {};
+if (!window.leadvertex.selling) window.leadvertex.selling = {};
+if (!window.leadvertex.selling.delivery) window.leadvertex.selling.delivery = {};
+if (!window.leadvertex.selling.discount) window.leadvertex.selling.discount = {};
+if (!window.leadvertex.selling.price) window.leadvertex.selling.price = {};
+
 window.leadvertex.form = {};
 
 window.leadvertex.form.label = function(field,name,form){
@@ -84,6 +89,50 @@ $(document).ready(function(){
         else field = 'div.lv-row-'+field;
         var $element = $('#lv-form'+form+' '+field);
         if (position == 'before') $element.before($(e));
-        else $element.after($(e));
+        if (position == 'after') $element.after($(e));
     });
+
+    var $quantity = $('.lv-input-quantity');
+    $quantity.change(function(){
+        var quantity = parseInt($(this).val());
+        var deliveryObject = window.leadvertex.selling.delivery;
+        var discountObject = window.leadvertex.selling.discount;
+
+        // Доставка
+        var deliveryPrice = parseInt(deliveryObject['price']);
+        var delivery;
+        if (deliveryObject['for_Each']) {
+            delivery = deliveryPrice * quantity;
+            $('.lv-delivery-price').text(delivery);
+        } else delivery = deliveryPrice;
+
+        //Итого
+        var price = parseInt(window.leadvertex.selling.price['price']);
+        var discountPercent = 0;
+        var discountRound = true;
+        if (discountObject[quantity]) {
+            discountPercent = discountObject[quantity]['discount'];
+            discountRound = discountObject[quantity]['round'];
+        } else {
+            var index = -1;
+            for (var i in discountObject) if (quantity>=i) {
+                index = i;
+            } else break;
+            if (index == -1) {
+                discountPercent = 0;
+                discountRound = true;
+            } else {
+                discountPercent = discountObject[index]['discount'];
+                discountRound = discountObject[index]['round'];
+            }
+        }
+        var newPrice = parseFloat((price * quantity / 100) * (100-discountPercent)).toFixed(2);
+        var discountSum = price*quantity-newPrice;
+        price = newPrice;
+        if (discountRound) price = Math.round(price);
+        $('.lv-quantity-discount-sum').text(parseInt(discountSum));
+        $('.lv-quantity-discount-percent').text(parseInt(discountPercent));
+        $('.lv-total-price').text(parseInt(delivery)+parseFloat(price));
+    });
+    $quantity.change();
 });

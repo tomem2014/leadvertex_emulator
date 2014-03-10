@@ -1,5 +1,5 @@
 {{page="Главная страница"}}
-<div class="span12">
+<div>
 
 <div class="alert">
     <h4>Эмулятор LeadVertex</h4>
@@ -55,47 +55,6 @@
     </p>
 
     <p>
-        <code><span class="special">price</span></code> - возвращает стоимость товара, указанную в конфигурации проекта.
-        Текущее значение: «{{price}}»
-    <ul>
-        <li><code><span class="special">price+280</span></code> - прибавляет к цене целое число. Текущее значение:
-            «{{price+280}}»
-        </li>
-        <li><code><span class="special">price-280</span></code> - вычитает из цены целое число. Текущее значение:
-            «{{price-280}}»
-        </li>
-        <li><code><span class="special">price+10%</span></code> - прибавляет к цене 10%. Текущее значение:
-            «{{price+10%}}»
-        </li>
-        <li><code><span class="special">price-10%</span></code> - вычитает из цены 10%. Текущее значение:
-            «{{price-10%}}»
-        </li>
-        <li><code><span class="special">old_price-<span class="special">price</span></span></code> - вычитает из старой цены текущую. Текущее значение:
-            «{{old_price-{{price}}}}»
-        </li>
-    </ul>
-    </p>
-
-    <p>
-        <code><span class="special">old_price</span></code> - возвращает старую стоимость товара, указанную в
-        конфигурации проекта. Текущее значение: «{{old_price}}»
-    <ul>
-        <li><code><span class="special">old_price+280</span></code> - прибавляет к старой цене целое число. Текущее
-            значение: «{{old_price+280}}»
-        </li>
-        <li><code><span class="special">old_price-280</span></code> - вычитает из старой цены целое число. Текущее
-            значение: «{{old_price-280}}»
-        </li>
-        <li><code><span class="special">old_price+10%</span></code> - прибавляет к старой цене 10%. Текущее значение:
-            «{{old_price+10%}}»
-        </li>
-        <li><code><span class="special">old_price-10%</span></code> - вычитает из старой цены 10%. Текущее значение:
-            «{{old_price-10%}}»
-        </li>
-    </ul>
-    </p>
-
-    <p>
         <code><span class="special">meta_description</span></code> - возвращает мета-описание страницы, указаное в
         конфигурации проекта.
         Текущее значение: «{{meta_description}}»
@@ -137,6 +96,71 @@
         пропишите <code><span class="special">title="Одна форма заказа"</span></code>
     </div>
 </fieldset>
+<fieldset id="prices">
+    <legend>Цены</legend>
+    <p>
+        <code><span class="special">price</span></code> - возвращает стоимость товара, указанную в конфигурации проекта.
+        Текущее значение: «{{price}}»
+    </p>
+    <p>
+        <code><span class="special">old_price</span></code> - возвращает старую стоимость товара, указанную в
+        конфигурации проекта. Текущее значение: «{{old_price}}»
+    </p>
+    <p>
+        <code><span class="special">diff_price_sum</span></code> - Возвращает разницу между старой и новой ценой.
+        Текущее значение: «{{diff_price_sum}}»
+    </p>
+    <p>
+        <code><span class="special">diff_price_percent</span></code> - Возвращает разницу между старой и новой ценой в процентах.
+        Текущее значение: «{{diff_price_percent}}»
+    </p>
+
+    <!--Цена доставки-->
+    <p id="delivery_price">
+        Цена доставки может зависеть от количества товаров. Например, в настройках может быть установлен  параметр
+        «Применять цену доставки к каждому товару» - в таком случае, цена доставки будет умнозаться на количество товаров.
+        В связи с этим есть несколько особенностей использования данного тега:
+    </p>
+    <ul>
+        <li>
+            <code><span class="special">delivery_price</span></code> - возвращает стоимость доставки товара. Текущее значение: «{{delivery_price}}».
+            <b>Изменяется автоматически</b> при смене количества товара. Использование данного тега целесообрано в форме заказа для того,
+            чтобы ваш клиент видел сколько и на что он тратит.
+        </li>
+        <li>
+            <code><span class="special">delivery_price=1</span></code> - возвращает стоимость доставки одной единицы товара.
+            Текущее значение: «{{delivery_price=1}}». <b>Не изменяется</b> автоматически. Целесообрано использовать например, в
+            описании условий доставки в тексте страницы
+        </li>
+        <li></li>
+    </ul>
+
+
+    <p id="total_price">
+        <code><span class="special">total_price</span></code> - возвращает цена_товара*количество - скидка +доставка.
+        Текущее значение: «{{total_price}}». При смене количества сумма пересчитывается и обновляется автоматически
+    </p>
+
+    <!--Количественные скидки-->
+    <p>
+        В настройках оффера предприниматель может устанавливать скидки на товар, в зависимости от его количества
+    </p>
+    <ul>
+        <li><code><span class="special">quantity_discount_sum</span></code> - возвращает текущую сумму скидки за выбранное количество товара.
+            Текущее значение: «{{quantity_discount_sum}}». <b>Изменяется автоматически</b> при смене количества товара.
+        </li>
+        <li><code><span class="special">quantity_discount_sum=5</span></code> - возвращает текущую сумму скидки за 5 единиц товара.
+            Текущее значение: «{{quantity_discount_sum=5}}». <b>Не изменяется</b> автоматически.
+        </li>
+        <li><code><span class="special">quantity_discount_percent</span></code> - возвращает текущую сумму скидки в процентах за выбранное количество товара.
+            Текущее значение: «{{quantity_discount_percent}}». <b>Изменяется автоматически</b> при смене количества товара.
+        </li>
+        <li><code><span class="special">quantity_discount_percent=5</span></code> - возвращает текущую сумму скидки в процентах за 5 единиц товара.
+            Текущее значение: «{{quantity_discount_percent=5}}». <b>Не изменяется</b> автоматически.
+        </li>
+    </ul>
+</fieldset>
+
 <fieldset id="datetime">
     <legend>Дата и время</legend>
     <p>
@@ -187,7 +211,27 @@
 </fieldset>
 <fieldset id="forms">
     <legend>Форма заказа</legend>
-    {{form2}}
+    <div class="row-fluid">
+        <div class="span6">
+            <script>window.leadvertex.form.placeholderOnly(2);</script>
+            <style>#lv-form2 {width: auto;}</style>
+            {{form2}}
+        </div>
+        <div class="span6">
+            <br/>
+            <ul>
+                <li>Цена:</b> {{price}} руб</li>
+                <li>Скидка:</b> {{quantity_discount_percent}}%</li>
+                <li>Скидка при заказе 5 шт:</b> {{quantity_discount_percent=5}}%</li>
+                <li>Вы экономите:</b> {{quantity_discount_sum}} руб</li>
+                <li>При заказе 5 шт вы экономите:</b> {{quantity_discount_sum=5}} руб</li>
+                <li>Доставка:</b> {{delivery_price}} руб</li>
+                <li>Доставка 5 шт:</b> {{delivery_price=5}} руб</li>
+                <li>Итого (+ доставка и НДС):</b> {{total_price}} руб</li>
+            </ul>
+        </div>
+    </div>
+    <br/>
     <div class="alert alert-info">
         На одной странице возможно размещать не более девяти форм заказа используя
         <code><span class="special">form</span></code>, <code><span class="special">form2</span></code>,
@@ -204,8 +248,7 @@
     <p>
         Подключать сторонние, популярные библиотек типа bootstrap и moderniz мы рекомендуем с
         <a href="http://api.yandex.ru/jslibs/">Яндекс CDN</a> - такой подход поможет вам обеспечить более высокую
-        скорость
-        загрузки страниц, что повысит вашу конверсию и снизит нагрузку на наши сервера
+        скорость загрузки страниц, что повысит вашу конверсию и снизит нагрузку на наши сервера
     </p>
     <hr/>
     <div class="alert alert-info">

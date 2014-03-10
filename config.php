@@ -4,6 +4,20 @@ $config = array(
   'title' => 'Мой интернет-магазин',
   'old_price' => 1990,
   'price' => 990,
+  'delivery_price' => 100,
+  'delivery_for_each' => true,
+  'quantity' => 1,
+  // Количество товара => array('discount' => скидка_в_процентах, 'round'=>bool_округлять)
+  'discount' => array(
+    2 => array(
+      'discount' => 20,
+      'round' => true,
+    ),
+    3 => array(
+      'discount' => 30,
+      'round' => true,
+    ),
+  ),
   'phone' => '+7(555)555-55-55',
   'email' => 'mail@example.com',
   'meta_keywords' => 'ключевоеСлово1, ключевоеСлово2, ключевоеСлово3, ключевоеСлово4',
@@ -159,4 +173,4 @@ $form = array(
 $buttonText = 'Оформить заказ';
 
 //Какие поля и в каком порядке будут отображены на форме
-$fields = array('fio','country','city','address','phone','checkboxPersonalData');
+$fields = array('fio','country','city','address','phone','quantity');

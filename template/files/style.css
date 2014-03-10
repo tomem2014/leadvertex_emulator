@@ -24,7 +24,12 @@ span.special:after {
 }
 
 #navbar-left {
-    position: relative
+    position: relative;
+}
+
+#navbar-left>ul {
+    width: 220px;
+    position: fixed;
 }
 
 .lv-order-form {

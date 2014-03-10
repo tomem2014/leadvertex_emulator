@@ -8,8 +8,10 @@ class Renderer {
   protected $scripts = array();
 
   private $_html;
+  private $_price;
+  private $_oldPrice;
 
-  const VERSION = 2.22;
+  const VERSION = 2.3;
 
   function __construct($data = array(), $fields = array(), $form = array(), $buttonText = 'Оформить заказ')
   {
@@ -150,6 +152,20 @@ class Renderer {
       'title' => 'Мой интернет-магазин',
       'old_price' => 1990,
       'price' => 990,
+      'delivery_price' => 100,
+      'delivery_for_each' => true,
+      'quantity' => 1,
+      // Количество товара => array('discount' => скидка_в_процентах, 'round'=>bool_округлять)
+      'discount' => array(
+        2 => array(
+          'discount' => 20,
+          'round' => true,
+        ),
+        3 => array(
+          'discount' => 30,
+          'round' => true,
+        ),
+      ),
       'meta_keywords' => 'ключевоеСлово1, ключевоеСлово2, ключевоеСлово3, ключевоеСлово4',
       'meta_description' => 'Мета-описание, задаваемое в конфигурации',
     );
@@ -159,7 +175,8 @@ class Renderer {
       'year' => date('Y'),
     );
     $this->data = array_merge($data_default, $data, $data_system);
-
+    $this->_oldPrice = $this->data['old_price'];
+    $this->_price = $this->data['price'];
     $this->fields = empty($fields) ? array_keys($this->form) : $fields;
 
     $this->buttonText = $buttonText;
@@ -198,7 +215,7 @@ class Renderer {
       $html.='<div class="lv-row lv-row-'.$field.' '.($type == 'checkbox' ? 'lv-row-checkbox' : 'lv-row-input').$errorClass.'" data-name="'.$field.'" data-required="'.(int)$required.'">';
       if ($type == 'checkbox') {
         $html.='<div class="lv-label">';
-        $html.='<input name="Order['.$field.']" id="lv-form'.$number.'-'.$field.'" value="1" type="checkbox" data-required="'.(int)$required.'">';
+        $html.='<input name="Order['.$field.']" id="lv-form'.$number.'-'.$field.'" value="1" type="checkbox" class="lv-input-'.$field.'" data-required="'.(int)$required.'">';
         $html.='<label for="lv-form'.$number.'-'.$field.'">С условиями покупки согласен</label>';
         $html.='</div>';
       }
@@ -207,7 +224,7 @@ class Renderer {
         $html.='<div class="lv-field">';
 
         if ($type == 'dropdown') {
-          $html.='<select data-label="'.$name.'" name="Order['.$field.']" id="lv-form'.$number.'-'.$field.'" data-required="'.(int)$required.'">';
+          $html.='<select data-label="'.$name.'" name="Order['.$field.']" id="lv-form'.$number.'-'.$field.'" class="lv-input-'.$field.'" data-required="'.(int)$required.'">';
           $items = explode(',',$pattern);
           foreach ($items as $item) {
             $item = trim($item);
@@ -216,8 +233,8 @@ class Renderer {
           }
           $html.='</select>';
         }
-        elseif ($type == 'string') $html.='<input data-label="'.$name.'" name="Order['.$field.']" id="lv-form'.$number.'-'.$field.'" type="text" maxlength="255" data-required="'.(int)$required.'"/>';
-        elseif ($type == 'text') $html.='<textarea data-label="'.$name.'" name="Order['.$field.']" id="lv-form'.$number.'-'.$field.'" data-required="'.(int)$required.'"></textarea>';
+        elseif ($type == 'string') $html.='<input data-label="'.$name.'" name="Order['.$field.']" id="lv-form'.$number.'-'.$field.'" class="lv-input-'.$field.'" type="text" maxlength="255" data-required="'.(int)$required.'"/>';
+        elseif ($type == 'text') $html.='<textarea data-label="'.$name.'" name="Order['.$field.']" id="lv-form'.$number.'-'.$field.'" class="lv-input-'.$field.'" data-required="'.(int)$required.'"></textarea>';
 
         $html.='</div>';
       }
@@ -247,6 +264,21 @@ class Renderer {
     );
     return $mArray[$month];
   }
+  private function calcDiscount($quantity = null)
+  {
+    $discount = $this->data['discount'];
+    ksort($discount);
+    if (empty($discount)) $discount = [['discount' => 0, 'round' => false]];
+    if ($quantity === null) return $discount;
+    if (isset($discount[$quantity])) return $discount[$quantity];
+    else {
+      $keys = array_keys($discount);
+      if (empty($keys)) return ['discount' => 0, 'round' => false];
+      foreach ($keys as $value) if ($quantity >= $value) $index = $value; else break;
+      if (isset($index)) return $discount[$index];
+      else return ['discount' => 0, 'round' => false];
+    }
+  }
 
   private function tagJquery()
   {
@@ -265,7 +297,40 @@ class Renderer {
             if ($matches[1] == '-') $price = $price - $sum;
             else $price = $price + $sum;
           }
+          if ($tag == 'total_price') $price = '<span class="lv-total-price">'.$price.'</span>';
           $this->_html = str_ireplace($matches[0], $price, $this->_html);
+        }
+      }
+  }
+  private function tagDeliveryPrice()
+  {
+    if (preg_match_all('~(?:\{\{delivery_price(?:=(\d+))?\}\})~ui', $this->_html, $matches_all, PREG_SET_ORDER) > 0) {
+        foreach ($matches_all as $matches) {
+          $isSetQuantity = isset($matches[1]) && !empty($matches[1]);
+          $price = $isSetQuantity ? ($this->data['delivery_for_each'] ? $this->data['delivery_price']*$matches[1] : $this->data['delivery_price']) : $this->data['delivery_price'];
+          if ($isSetQuantity) $replace = $price;
+          else $replace = '<span class="lv-delivery-price">'.$price.'</span>';
+          $this->_html = str_ireplace($matches[0], $replace, $this->_html);
+        }
+      }
+  }
+  private function tagDiffPrice()
+  {
+    $diff = $this->_oldPrice-$this->_price;
+    $this->_html = str_ireplace('{{diff_price_sum}}',$diff,$this->_html);
+    $this->_html = str_ireplace('{{diff_price_percent}}',round(100-$this->_price/($this->_oldPrice/100)),$this->_html);
+  }
+  private function tagQuantityDiscount(){
+    if (preg_match_all('~(?:\{\{quantity_discount_(sum|percent)(?:=(\d+))?\}\})~ui', $this->_html, $matches_all, PREG_SET_ORDER) > 0) {
+        foreach ($matches_all as $matches) {
+          $matches[1] = strtolower($matches[1]);
+          $isSetQuantity = isset($matches[2]) && !empty($matches[2]);
+          $quantity = $isSetQuantity ? (int)$matches[2] : $this->data['quantity'];
+          $discount = $this->calcDiscount($quantity)['discount'];
+          if ($matches[1] == 'sum') $discount = round($this->_price*$quantity/100*$discount);
+          if ($isSetQuantity) $replace = $discount;
+          else $replace = '<span class="lv-quantity-discount-'.$matches[1].'">'.$discount.'</span>';
+          $this->_html = str_ireplace($matches[0], $replace, $this->_html);
         }
       }
   }
@@ -314,6 +379,20 @@ class Renderer {
       $this->registerFile('/assets/placeholders.min.js');
       $this->registerFile('/assets/formHelper.js');
       $this->registerFile('/assets/form.css');
+    }
+    if (!isset($this->scripts['JS-CDATA'])) {
+      $script = '<script type="text/javascript">'."\n";
+      $script.= 'if (!window.leadvertex.selling) window.leadvertex.selling = {};'."\n";
+      $script.= 'window.leadvertex.selling.discount = '.json_encode($this->calcDiscount()).';'."\n";
+      $script.= 'if (!window.leadvertex.selling.delivery) window.leadvertex.selling.delivery = {};'."\n";
+      $script.= 'window.leadvertex.selling.delivery.price = '.$this->data['delivery_price'].";\n";
+      $script.= 'window.leadvertex.selling.delivery.for_Each = '.$this->data['delivery_for_each'].";\n";
+      $script.= 'if (!window.leadvertex.selling.price) window.leadvertex.selling.price = {};'."\n";
+      $script.= 'window.leadvertex.selling.price.price = '.$this->data['price'].";\n";
+      $script.= 'window.leadvertex.selling.price.old = '.$this->data['old_price'].";\n";
+      $script.= '</script>'."\n";
+      if (preg_match('~<body[^>]*>~',$this->_html,$matches)) $this->_html = str_replace($matches[0],$matches[0].$script,$this->_html);
+      $this->scripts['JS-CDATA'] = 'JS-CDATA';
     }
   }
   private function tagGeo()
@@ -382,6 +461,10 @@ class Renderer {
     $this->tagCountdownJs();
     $this->tagPrice('price',$this->data['price']);
     $this->tagPrice('oldPrice|old_price',$this->data['old_price']);
+    $this->tagPrice('total_price',$this->data['price']*$this->data['quantity']);
+    $this->tagDiffPrice();
+    $this->tagDeliveryPrice();
+    $this->tagQuantityDiscount();
     $this->tagFromTo();
     $this->tagOnlyTo();
     $this->tagGeo();
@@ -392,7 +475,7 @@ class Renderer {
     $this->tagForm();
     $this->tagUserVars($this->data);
 
-    foreach ($this->data as $key => $value) if (gettype($value) != 'object') $this->_html = str_ireplace('{{' . $key . '}}', $value, $this->_html);
+    foreach ($this->data as $key => $value) if (!in_array(gettype($value),['object','array'])) $this->_html = str_ireplace('{{' . $key . '}}', $value, $this->_html);
     echo $this->_html;
   }
 }
