@@ -443,6 +443,10 @@ class Renderer {
       $this->_html = str_ireplace('{{countdown.js}}','',$this->_html);
     }
   }
+  private function tagWebmaster()
+  {
+    $this->_html = str_ireplace('{{webmaster}}', 0, $this->_html);
+  }
 
   protected function loadTemplate()
   {
@@ -473,6 +477,7 @@ class Renderer {
     $this->tagEmail();
     $this->tagFiles();
     $this->tagForm();
+    $this->tagWebmaster($this->data);
     $this->tagUserVars($this->data);
 
     foreach ($this->data as $key => $value) if (!in_array(gettype($value),['object','array'])) $this->_html = str_ireplace('{{' . $key . '}}', $value, $this->_html);
