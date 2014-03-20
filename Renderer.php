@@ -269,15 +269,15 @@ class Renderer {
   {
     $discount = $this->data['discount'];
     ksort($discount);
-    if (empty($discount)) $discount = [['discount' => 0, 'round' => false]];
+    if (empty($discount)) $discount = array(array('discount' => 0, 'round' => false));
     if ($quantity === null) return $discount;
     if (isset($discount[$quantity])) return $discount[$quantity];
     else {
       $keys = array_keys($discount);
-      if (empty($keys)) return ['discount' => 0, 'round' => false];
+      if (empty($keys)) return array('discount' => 0, 'round' => false);
       foreach ($keys as $value) if ($quantity >= $value) $index = $value; else break;
       if (isset($index)) return $discount[$index];
-      else return ['discount' => 0, 'round' => false];
+      else return array('discount' => 0, 'round' => false);
     }
   }
 
@@ -327,7 +327,8 @@ class Renderer {
           $matches[1] = strtolower($matches[1]);
           $isSetQuantity = isset($matches[2]) && !empty($matches[2]);
           $quantity = $isSetQuantity ? (int)$matches[2] : $this->data['quantity'];
-          $discount = $this->calcDiscount($quantity)['discount'];
+          $discount = $this->calcDiscount($quantity);
+          $discount = $discount['discount'];
           if ($matches[1] == 'sum') $discount = round($this->_price*$quantity/100*$discount);
           if ($isSetQuantity) $replace = $discount;
           else $replace = '<span class="lv-quantity-discount-'.$matches[1].'">'.$discount.'</span>';
@@ -470,7 +471,7 @@ class Renderer {
     $this->tagWebmaster($this->data);
     $this->tagUserVars($this->data);
 
-    foreach ($this->data as $key => $value) if (!in_array(gettype($value),['object','array'])) $this->_html = str_ireplace('{{' . $key . '}}', $value, $this->_html);
+    foreach ($this->data as $key => $value) if (!in_array(gettype($value),array('object','array'))) $this->_html = str_ireplace('{{' . $key . '}}', $value, $this->_html);
     echo $this->_html;
   }
 }
