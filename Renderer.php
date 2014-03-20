@@ -1,7 +1,6 @@
 <?php
 class Renderer {
   protected $data;
-  protected $page = 'index';
   protected $buttonText;
   protected $form;
   protected $fields;
@@ -13,8 +12,10 @@ class Renderer {
 
   const VERSION = 2.31;
 
-  function __construct($data = array(), $fields = array(), $form = array(), $buttonText = 'Оформить заказ')
+  function __construct($html = '', $data = array(), $fields = array(), $form = array(), $buttonText = 'Оформить заказ')
   {
+    $this->_html = $html;
+
     $formDefault = array(
       'fio' => array(
         'name' => 'Ф.И.О.',
@@ -448,19 +449,8 @@ class Renderer {
     $this->_html = str_ireplace('{{webmaster}}', 0, $this->_html);
   }
 
-  protected function loadTemplate()
+  public function render()
   {
-    $this->_html = file_get_contents('template/index.html');
-    if (stripos($this->_html, '{{content}}') !== false) {
-      $page = file_get_contents('template/pages/' . $this->page . '.html');
-      $this->_html = str_ireplace('{{content}}', $page, $this->_html);
-    }
-  }
-
-  public function render($page)
-  {
-    if ($page) $this->page = $page;
-    $this->loadTemplate();
     $this->tagJquery();
     $this->tagCountdownJs();
     $this->tagPrice('price',$this->data['price']);

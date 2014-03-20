@@ -51,6 +51,8 @@
             <li>region</li>
             <li>city</li>
             <li>address</li>
+            <li>house</li>
+            <li>flat</li>
             <li>phone</li>
             <li>email</li>
             <li>quantity</li>
@@ -94,12 +96,6 @@
                 <code class="sourceCode">&lt;script&gt;window.leadvertex.form.validationByAlert(2);&lt;/script&gt;</code>
                 Отображает сообщения об ошибках в заполнении формы во всплывающем сообщении, после нажатия кнопки оформления заказа
                 <a href="#example7">(Пример)</a>
-            </li>
-            <li>
-                <code class="sourceCode">&lt;script&gt;window.leadvertex.form.showOnly(['fio','phone'],2);&lt;/script&gt;</code>
-                Скрывает все поля формы, кроме «fio», «phone» и полей, обязательных для заполнение в форме 2.
-                Поля «Согласен на обработку персональных данных» и «С условиями покупки согласен» скрываются всегда.
-                <a href="#example8">(Пример)</a>
             </li>
             <li>
                 Перемещение блоков с данными (например, ценой) осуществляется следующим образом (<a href="#example5">пример</a>):
@@ -325,25 +321,7 @@
         </div>
 
         <hr/>
-        <h4 id="example8">Отображать только заданные поля</h4>
-        <p>
-            Скрывает все поля формы, кроме указанных в аргументах функции и полей, обязательных для заполнения.
-            Поля «Согласен на обработку персональных данных» и «С условиями покупки согласен» скрываются всегда
-        </p>
-        <div class="row-fluid">
-            <div class="span5">{{form8}}</div>
-            <div class="span7">
-                <h5>Код формы</h5>
-                <pre class="sourceCode">
-                    [[form8]]
-                    &lt;script&gt;window.leadvertex.form.showOnly(['fio','phone'],8);&lt;/script&gt;
-                </pre>
-                <script>window.leadvertex.form.showOnly(['fio','phone'],8);</script>
-            </div>
-        </div>
-
-        <hr/>
-        <h4 id="example9">Форма во всплывающем окне</h4>
+        <h4 id="example8">Форма во всплывающем окне</h4>
         <p>
             Используется виджет <a href="http://jqueryui.com/dialog/">Dialog jQuery UI</a>. Скопируйте код, указав в переменной <code>formNumber</code> номер формы, и допишите к
             кнопке/ссылке, которая будет открывать форму класс <code>lv-popup-form</code>. Например,
@@ -353,11 +331,11 @@
         <div class="row-fluid">
             <div class="span5">
                 <button class="btn btn-large lv-popup-form">Заказать сейчас!!!</button>
-                {{form9}}
+                {{form8}}
                 <script src="http://yandex.st/jquery-ui/1.10.4/jquery-ui.js"></script>
                 <link rel="stylesheet" href="http://yandex.st/jquery-ui/1.10.4/themes/base/jquery-ui.min.css"/>
                 <script>
-                    var formNumber = 9;
+                    var formNumber = 8;
                     window.leadvertex.form.placeholderOnly(formNumber);
                     $(document).ready(function(){
                         $('#lv-form'+formNumber).dialog({
@@ -373,11 +351,11 @@
             <div class="span7">
                 <h5>Код формы</h5>
                 <pre class="sourceCode">
-                    [[form9]]
+                    [[form8]]
                     &lt;script src=&quot;http://yandex.st/jquery-ui/1.10.4/jquery-ui.js&quot;&gt;&lt;/script&gt;
                     &lt;link rel=&quot;stylesheet&quot; href=&quot;http://yandex.st/jquery-ui/1.10.4/themes/base/jquery-ui.min.css&quot;/&gt;
                     &lt;script&gt;
-                        var formNumber = 9;
+                        var formNumber = 8;
                         window.leadvertex.form.placeholderOnly(formNumber);
                         $(document).ready(function(){
                             $('#lv-form'+formNumber).dialog({

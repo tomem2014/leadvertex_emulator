@@ -12,5 +12,12 @@ if (!isset($_COOKIE['lv_lastcheck'])) {
   } else setcookie('lv_lastcheck',1,time()+60*60*24,null,null,null,true);
 }
 
-$renderer = new Renderer($config,$fields,$form,$buttonText);
-$renderer->render(@$_GET['page']);
+$html = file_get_contents('template/index.html');
+$page = isset($_GET['page']) ? $_GET['page'] : 'index';
+if (stripos($html, '{{content}}') !== false) {
+  $page = file_get_contents('template/pages/' . $page . '.html');
+  $html = str_ireplace('{{content}}', $page, $html);
+}
+
+$renderer = new Renderer($html,$config,$fields,$form,$buttonText);
+$renderer->render();
