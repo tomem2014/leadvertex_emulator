@@ -19,5 +19,5 @@ if (stripos($html, '{{content}}') !== false) {
   $html = str_ireplace('{{content}}', $page, $html);
 }
 
-$renderer = new Renderer($html,$config,$fields,$form,$buttonText);
-$renderer->render();
+$renderer = new Renderer($config,$fields,$form,$buttonText);
+$renderer->render($html);

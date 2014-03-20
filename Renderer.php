@@ -12,9 +12,8 @@ class Renderer {
 
   const VERSION = 2.31;
 
-  function __construct($html = '', $data = array(), $fields = array(), $form = array(), $buttonText = 'Оформить заказ')
+  function __construct($data = array(), $fields = array(), $form = array(), $buttonText = 'Оформить заказ')
   {
-    $this->_html = $html;
 
     $formDefault = array(
       'fio' => array(
@@ -450,8 +449,9 @@ class Renderer {
     $this->_html = str_ireplace('{{webmaster}}', 0, $this->_html);
   }
 
-  public function render()
+  public function render($html)
   {
+    $this->_html = $html;
     $this->tagJquery();
     $this->tagCountdownJs();
     $this->tagPrice('price',$this->data['price']);
