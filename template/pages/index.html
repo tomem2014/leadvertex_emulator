@@ -1,335 +1,85 @@
 {{page="Главная страница"}}
+{{active_index="active"}}
 <div>
-
-<div class="alert">
-    <h4>Эмулятор LeadVertex</h4>
-    <hr/>
+    <h1>Ваш персональный демо-проект</h1>
     <p>
-        У нас есть эмулятор нашего шаблонизатора, который позволит вам легко и быстро верстать лендинги у себя на
-        компьютере.
-        Код эмулятора <a target="_blank" href="https://github.com/XAKEPEHOK/leadvertex_emulator/">доступен на GitHub</a>
-    </p>
-</div>
-
-{{form}}
-
-<h2>Возможности шаблонизатора</h2>
-<fieldset id="system">
-    <legend>Системные</legend>
-    <div class="alert alert-info">При создании собственных шаблонов обязательно учитывайте следующие особенности:</div>
-    <p>
-        <b>Все подключаемые ресурсы (стили, скрипты, изображения) должны находиться в папке <code>files/</code></b><br>
-        <code><span class="special">files</span></code> - возвращает путь к папке «files» шаблона. Имейте ввиду, что
-        простое прописывание в html-коде пути вида <code>&lt;img src=&quot;files/image.jpg&quot; /&gt;</code> приведет
-        к недоступности подключаемого ресурса. Необходимо использовать следующую конструкцию
-        <code>&lt;img src=&quot;<span class="special">files</span>/image.jpg&quot; /&gt;</code>
+        Вы находитесь на странице вашего персонального демо-проекта, в котором вы сможете оценить весь функционал нашего сервиса.
+        Это стандартный лендинг (дизайн) для демонстрационных проектов, на котором мы постараемся показать вам все возможности.
+        Можете смело делать здесь заказы и тестировать весь функционал нашего сервиса.
     </p>
 
-    <p>
-        <code id="jquery"><span class="special">jquery</span></code> - подключает jQuery 1.9.1. Если васм нужна
-        библиотека jQuery подключайте ее именно таким образом. В противном случае возможны конфликты. Достаточно просто прописать
-        <span class="special">jquery</span> в любом месте кода. <b>Библиотека автоматически подключится в тег <code>&lt;head&gt;</code>,
-        перед тегом <code>&lt;title&gt;</code></b>. Данный тег подключит скрипт лишь единожды, повторный вызов не подключит скрипт второй раз
-    </p>
-
-    <p>
-        <code><span class="special">domain</span></code> - возвращает текущий домен. Текущее значение: «{{domain}}»
-    </p>
-    <p>
-        <code><span class="special">webmaster</span></code> - возвращает ID вебмастера. Текущее значение: «{{webmaster}}».
-        Используется в тех случаях, когда на странице успешного заказа предлагается посмотреть другие офферы. В таком случае,
-        вы можете сделать ссылки на эти офферы партнерскими, и лиды, совершенные на них будут засчитаны от веб-мастера, который привел
-        текущего покупателя. Например, ссылка на другой оффер может быть вида http://demo-1.leadvertex.info/?f={{webmaster}}
-    </p>
-    <p>
-        <code><span class="special">order_number</span></code> - возвращает номер текущего заказа пользователя.
-    </p>
-    <p>
-        <code><span class="special">content</span></code> - В корне папки каждого домена есть главный файл index.html -
-        это шаблон основной страницы, в которую обычно включается шапка и подвал, а контент прочих страниц загружается
-        из
-        отдельных файлов. Тег <span class="special">content</span> включает в содержимое главного файла index.html
-        содержимое файла,
-        находящегося в папке pages. Т.е. запрос вида {{domain}}/page.html выведет внутри главного файла index.html
-        содержимое файла
-        pages/page.html
-    </p>
-
-</fieldset>
-<fieldset id="variables">
-    <legend>Настраиваемые переменные</legend>
-    <p>
-        <code><span class="special">title</span></code> - возвращает заголовок, указанный в конфигурации проекта.
-        Текущее значение: «{{title}}»
-    </p>
-
-    <p>
-        <code><span class="special">meta_description</span></code> - возвращает мета-описание страницы, указаное в
-        конфигурации проекта.
-        Текущее значение: «{{meta_description}}»
-    </p>
-
-    <p>
-        <code><span class="special">meta_keywords</span></code> - возвращает мета-ключевые слова страницы, указаные в
-        конфигурации проекта.
-        Текущее значение: «{{meta_keywords}}»
-    </p>
-
-    <p>
-        <code><span class="special">email</span></code> - возвращает email администратора, указаный в конфигурации
-        проекта.
-        Текущее значение: «{{email}}». Может принимать следующие параметры:
-
-    <ul>
-        <li><code><span class="special">email|protected</span></code> - возвращает email-адрес, защищенный от
-            спам-ботов.
-            Выглядит на странице как обычно: «{{email|protected}}», но посмотрите код страницы
-        <li><code><span class="special">email="email@example.com"</span></code> - возвращает значение:
-            «{{email="email@example.com"}}»
-        </li>
-        <li><code><span class="special">email="email@example.com"|protected"</span></code> - возвращает произвольный
-            email,
-            защищенный от спама: «{{email="email@example.com"|protected}}»
-        </li>
-    </ul>
-    </p>
-    <p>
-        <code><span class="special">phone</span></code> - возвращает телефон, указаный в конфигурации проекта.
-        Текущее значение: «{{phone}}»
-    </p>
-
+    <h2>Цена товара</h2>
     <div class="alert alert-info">
-        Вы можете переопределять переменные из фалйов шаблонов. Например, вы хотите изменить <code><span
-            class="special">title</span></code>
-        для страницы <a href="/form.html">/form.html</a>. Для этого, в начале страницы form.html
-        пропишите <code><span class="special">title="Одна форма заказа"</span></code>
+        Мы разработали отличный инструмент для опеределения наилучшей цены товара и повышения ваших доходов! Вы можете изменить цену
+        продаваемого товара, просто сгенерировав специальную ссылку
     </div>
-</fieldset>
-<fieldset id="prices">
-    <legend>Цены</legend>
-    <p>
-        <code><span class="special">price</span></code> - возвращает стоимость товара, указанную в конфигурации проекта.
-        Текущее значение: «{{price}}»
-    </p>
-    <p>
-        <code><span class="special">old_price</span></code> - возвращает старую стоимость товара, указанную в
-        конфигурации проекта. Текущее значение: «{{old_price}}»
-    </p>
-    <p>
-        <code><span class="special">diff_price_sum</span></code> - Возвращает разницу между старой и новой ценой.
-        Текущее значение: «{{diff_price_sum}}»
-    </p>
-    <p>
-        <code><span class="special">diff_price_percent</span></code> - Возвращает разницу между старой и новой ценой в процентах.
-        Текущее значение: «{{diff_price_percent}}»
+    <p class="lead">Всего за <s>&nbsp;{{old_price}}&nbsp;</s> {{price}} руб. Со скидкой {{diff_price_percent}}% вы экономите {{diff_price_sum}} руб</p>
+    <ul>
+        <li>Сгенерировав <a href="/index.html?o=1f40&p=137e">такую ссылку</a> и перейдя по ней вы увидите, что цена на товар изменится на 4990 руб, а старая цена на 8000 руб</li>
+        <li>Или <a href="/index.html?o=bb8&p=69a">такую</a>, и цена на товар изменится на 1690 руб, а старая цена на 3000 руб</li>
+    </ul>
+    <p>В настройках вы можете запретить изменение цены товара или задать её минимальное значение. Кроме того, каждый домен
+        вашего проекта может иметь отдельную цену на товар
     </p>
 
-    <!--Цена доставки-->
-    <p id="delivery_price">
-        Цена доставки может зависеть от количества товаров. Например, в настройках может быть установлен  параметр
-        «Применять цену доставки к каждому товару» - в таком случае, цена доставки будет умнозаться на количество товаров.
-        В связи с этим есть несколько особенностей использования данного тега:
-    </p>
+    <h2>Маркетинговые уловки</h2>
+    <div class="alert alert-info">
+        Наш сервис позволяет использовать на лендингах специальные маркетинговые уловки, которые значительно повышают конверсию
+    </div>
     <ul>
+        <li>Легкая установка старой и новой цены на товар</li>
+        <li>Уловки с датами. Например, «только {{today}}», «только с {{from_to}}», «только до {{only_to}}» </li>
         <li>
-            <code><span class="special">delivery_price</span></code> - возвращает стоимость доставки товара. Текущее значение: «{{delivery_price}}».
-            <b>Изменяется автоматически</b> при смене количества товара. Использование данного тега целесообрано в форме заказа для того,
-            чтобы ваш клиент видел сколько и на что он тратит.
+            Определять город и регион по IP-адресу. Полезно в отзывах, где пишется город человека, заказавшего товар.
+            Или «только для жителей г.{{geo_city}} мы предлагаем скидку...»
         </li>
         <li>
-            <code><span class="special">delivery_price=1</span></code> - возвращает стоимость доставки одной единицы товара.
-            Текущее значение: «{{delivery_price=1}}». <b>Не изменяется</b> автоматически. Целесообрано использовать например, в
-            описании условий доставки в тексте страницы
+            {{countdown.js}}
+            Таймер обратного отсчёта. «До окончания акции осталось
+            <span class="lv_countdown_days"></span>:<span class="lv_countdown_hours"></span>:<span class="lv_countdown_minutes"></span>:<span class="lv_countdown_seconds"></span>»
         </li>
-        <li></li>
     </ul>
 
 
-    <p id="total_price">
-        <code><span class="special">total_price</span></code> - возвращает цена_товара*количество - скидка +доставка.
-        Текущее значение: «{{total_price}}». При смене количества сумма пересчитывается и обновляется автоматически
-    </p>
-
-    <!--Количественные скидки-->
-    <p>
-        В настройках оффера предприниматель может устанавливать скидки на товар, в зависимости от его количества
-    </p>
-    <ul>
-        <li><code><span class="special">quantity_discount_sum</span></code> - возвращает текущую сумму скидки за выбранное количество товара.
-            Текущее значение: «{{quantity_discount_sum}}». <b>Изменяется автоматически</b> при смене количества товара.
-        </li>
-        <li><code><span class="special">quantity_discount_sum=5</span></code> - возвращает текущую сумму скидки за 5 единиц товара.
-            Текущее значение: «{{quantity_discount_sum=5}}». <b>Не изменяется</b> автоматически.
-        </li>
-        <li><code><span class="special">quantity_discount_percent</span></code> - возвращает текущую сумму скидки в процентах за выбранное количество товара.
-            Текущее значение: «{{quantity_discount_percent}}». <b>Изменяется автоматически</b> при смене количества товара.
-        </li>
-        <li><code><span class="special">quantity_discount_percent=5</span></code> - возвращает текущую сумму скидки в процентах за 5 единиц товара.
-            Текущее значение: «{{quantity_discount_percent=5}}». <b>Не изменяется</b> автоматически.
-        </li>
-    </ul>
-</fieldset>
-
-<fieldset id="datetime">
-    <legend>Дата и время</legend>
-    <p>
-        <code><span class="special">today</span></code> - возвращает текущую дату.
-        Текущее значение: «{{today}}»
-    </p>
-
-    <p>
-        <code><span class="special">year</span></code> - возвращает текущий год.
-        Текущее значение: «{{year}}»
-    </p>
-
-    <p>
-        <code><span class="special">from_to</span></code> - возвращает дипазон дат (по умолчанию за 7 дней), где
-        последний день является текущим.
-        Текущее значение: «{{from_to}}»
-    </p>
-
-    <p>
-        <code><span class="special">from_to=5</span></code> - возвращает дипазон дат за 3 дня (параметр изменяемый).
-        Текущее значение: «{{from_to=5}}»
-    </p>
-
-    <p>
-        <code><span class="special">only_to</span></code> - возвращает текущую дату + 2 дня.
-        Текущее значение: «{{only_to}}»
-    </p>
-
-    <p>
-        <code><span class="special">only_to=5</span></code> - возвращает текущую дату + 5 дней (параметр изменяемый).
-        Текущее значение: «{{only_to=5}}»
-    </p>
-</fieldset>
-<fieldset id="geo">
-    <legend>География</legend>
-    <div class="alert alert-info">Если определить географию невозможно, то возвращается «Москва, Московская область»
+    <h2>Форма заказа</h2>
+    <div class="alert alert-info">
+        Форма заказа может быть настроена максимально гибко. Вы можете редактировать набор полей, их типы, порядок следования
+        и правила проверки введенных данных. Все это не требует специальных знаний, а настраивается в меню «Настройки - Поля формы»
+        буквально в пару кликов. Кроме того, вы можете настроить поля по-разному для каждого домена
     </div>
-    <p>
-        <code><span class="special">geo_city</span></code> - возвращает город пользователя по IP.
-        Текущее значение: «{{geo_city}}»
-    </p>
-
-    <p>
-        <code><span class="special">geo_region</span></code> - возвращает регион пользователя по IP.
-        Текущее значение: «{{geo_region}}»
-    </p>
-
-</fieldset>
-<fieldset id="forms">
-    <legend>Форма заказа</legend>
-    <div class="row-fluid">
-        <div class="span6">
-            <script>window.leadvertex.form.placeholderOnly(2);</script>
-            <style>#lv-form2 {width: auto;}</style>
-            {{form2}}
-        </div>
-        <div class="span6">
+    <div class="row">
+        <script>
+            window.leadvertex.form.placeholderOnly(1);
+        </script>
+        <div class="span5">{{form}}</div>
+        <div class="span7">
+            <b>Цена: </b> {{price}} руб<br>
+            <b>Доставка: </b> {{delivery_price=1}} руб<br>
+            <b>Скидка за количество товаров: </b> {{quantity_discount_percent}}%<hr>
+            <b class="lead">Итого: </b> {{total_price}} руб<br>
             <br/>
-            <ul>
-                <li>Цена:</b> {{price}} руб</li>
-                <li>Скидка:</b> {{quantity_discount_percent}}%</li>
-                <li>Скидка при заказе 5 шт:</b> {{quantity_discount_percent=5}}%</li>
-                <li>Вы экономите:</b> {{quantity_discount_sum}} руб</li>
-                <li>При заказе 5 шт вы экономите:</b> {{quantity_discount_sum=5}} руб</li>
-                <li>Доставка:</b> {{delivery_price}} руб</li>
-                <li>Доставка 5 шт:</b> {{delivery_price=5}} руб</li>
-                <li>Итого (+ доставка и НДС):</b> {{total_price}} руб</li>
-            </ul>
-        </div>
-    </div>
-    <br/>
-    <div class="alert alert-info">
-        На одной странице возможно размещать не более девяти форм заказа используя
-        <code><span class="special">form</span></code>, <code><span class="special">form2</span></code>,
-        <code><span class="special">form3</span></code> ...
-    </div>
-    <ul>
-        <li><a href="/form.html">Примеры разных конфигураций формы заказа</a></li>
-    </ul>
-</fieldset>
-<fieldset id="js">
-    <legend>JavaScript, CSS и сторонние библиотеки</legend>
-    <p>О том, как подключить к проекту jQuery описано <a href="#jquery">выше</a></p>
-
-    <p>
-        Подключать сторонние, популярные библиотек типа bootstrap и moderniz мы рекомендуем с
-        <a href="http://api.yandex.ru/jslibs/">Яндекс CDN</a> - такой подход поможет вам обеспечить более высокую
-        скорость загрузки страниц, что повысит вашу конверсию и снизит нагрузку на наши сервера
-    </p>
-    <hr/>
-    <div class="alert alert-info">
-        Есть определенные вещи, которые очень часто используются в лендингах. Например, обратный отсчет времени для
-        стимулирования
-        клиента заказать товар/услугу быстрее. Ниже приведены готовые скрипты, которые позволят вам проще подключать
-        часто
-        требуемый функционал. Список будет пополняться.
-    </div>
-    <h5>Обратный отсчет времени</h5>
-
-    <p>
-        <code><span class="special">countdown.js</span></code> - подключает скрипт таймера обратного отсчета.
-        {{countdown.js}}
-    </p>
-
-    <p>
-        Время отсчета таймера задается в секундах в любом месте страницы (или в вашем скрипте). В данном примере: 560
-        секунд
-        <code>
-            &lt;script&gt;window.leadvertex.seconds = <b>560</b>&lt;/script&gt;
-        </code>
-        <script>window.leadvertex.seconds = 560</script>
-    </p>
-    <p>
-        Далее, прописав классы к нужным элементам их содержимое будет заменяться соответствующими значениями:
-    <ul>
-        <li><code>.lv_countdown_days</code> Дней: <span class="lv_countdown_days"></span></li>
-        <li><code>.lv_countdown_hours</code> Часов: <span class="lv_countdown_hours"></span></li>
-        <li><code>.lv_countdown_minutes</code> Минут: <span class="lv_countdown_minutes"></span></li>
-        <li><code>.lv_countdown_seconds</code> Секунд: <span class="lv_countdown_seconds"></span></li>
-    </ul>
-    </p>
-    <p>
-        После истечения времени счетчик пойдет повторно
-    </p>
-
-</fieldset>
-<fieldset id="faq">
-    <legend>FAQ</legend>
-    <div class="accordion" id="accordion">
-        <div class="accordion-group">
-            <div class="accordion-heading">
-                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-                    Как мне изменить внешний вид формы заказа?
-                </a>
-            </div>
-            <div id="collapseOne" class="accordion-body collapse">
-                <div class="accordion-inner">
-                    <b><a href="/form.html">Примеры разных конфигураций формы заказа</a></b>
-                    <br/>
-                    Разметка формы заказа содержит достаточно вложенных друг в друга элементов, что позволяет придавать
-                    ей практически любой вид средствами CSS, будь то раположение полей в 2 колонки или изменение любых
-                    параметров отдельного поля.
-                    <br/>
-                    Кроме того, вы можете испольовать javascript для более тонкой кастомизации
-                </div>
-            </div>
-        </div>
-        <div class="accordion-group">
-            <div class="accordion-heading">
-                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
-                    Я хочу редактировать шаблон у себя на компьютере и видеть результат
-                </a>
-            </div>
-            <div id="collapseTwo" class="accordion-body collapse">
-                <div class="accordion-inner">
-                    Вы можете использовать <a href="https://github.com/XAKEPEHOK/leadvertex_emulator/">эмулятор</a>
-                    нашего шаблонизатора у себя на компьютере
-                </div>
+            <div class="alert alert-info">
+                Вы можете гибко настраивать скидки на товар в зависимости от его количества. Например, делать акции вида
+                «Второй товар со скидкой 50%» или «Третий товар бесплатно». Это настраивается в меню «Настройки - Продажи - Управление скидками»
+                <hr/>
+                Цена доставки может оставаться одной и той же при заказе нескольких товаров, или считаться отдельно для каждого
             </div>
         </div>
     </div>
-</fieldset>
+
+    <h2>Остались вопросы?</h2>
+    <p>
+        Мы рекомендуем вам ознакомиться с нашими текстовыми или видео-инструкциями. Они сняты максимально кратко и понятно, и всего
+        за 10 минут вы полностью разберетесь с тем, как работает наша система. Инструкции можно найти в
+        <a href="http://blog.leadvertex.ru/">нашем блоге</a>, в разделе «Инструкции»
+    </p>
+    <p>
+        В случае возникновения вопросов вы всегда можете обратиться в нашу <a href="leadvertex.ru/page/contact.html">службу поддерджки</a>
+        любым удобным для вас способом. Мы обязательно вам поможем <img src="http://www.kolobok.us/smiles/standart/good3.gif" alt=""/>
+    </p>
+    <p>
+        Также мы рекомендуем вам подписаться на наши новости <a href="http://vk.com/leadvertex">ВКонтакте</a> для того, чтобы знать о
+        новых возможностях нашего сервиса
+    </p>
+
 </div>

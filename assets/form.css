@@ -1,7 +1,3 @@
-.lv-order-form {
-  padding: 15px;
-  border: thin solid gray;
-}
 .lv-order-form div.lv-row {
   display: block;
   margin-bottom: 8px;
@@ -9,9 +5,6 @@
 .lv-order-form input[type=text],
 .lv-order-form select,
 .lv-order-form textarea {
-  box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
   display: block;
   width: 100%;
   padding: 5px;
@@ -44,4 +37,15 @@
   display: block;
   padding: 10px 20px;
   margin: 0 auto;
+}
+.lv-order-form-css {
+  padding: 15px;
+  border: thin solid gray;
+}
+.lv-order-form-css input[type=text],
+.lv-order-form-css select,
+.lv-order-form-css textarea {
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
 }

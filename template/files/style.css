@@ -32,9 +32,10 @@ span.special:after {
     position: fixed;
 }
 
-.lv-order-form {
-    width: 50%;
-    margin: 0 auto;
+form.lv-order-form {
+    border: none;
+    border-radius: 8px;
+    box-shadow: 1px 1px 2px 2px #cdcdcd;
 }
 
 .span5 .lv-order-form {

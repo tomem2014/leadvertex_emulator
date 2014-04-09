@@ -1,8 +1,64 @@
 {{page="Заказ оформлен"}}
-<div>
-    <h1>{{page}}</h1>
+{{no_layout}}
 
-    <p>В ближайшее время мы свяжемся с вами для подтверждения заказа</p>
+<html>
+<head>
+    <script type="text/javascript" src="//yandex.st/jquery/1.9.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        /*<![CDATA[*/
+        if (!window.leadvertex) window.leadvertex = {};
+        /*]]>*/
+    </script>
+    <title>Спасибо за ваш заказ - Энергетический браслет.</title>
+    <style>
+        body, html {
+            height: 100%;
+            overflow: hidden;
+        }
+        body {
+            background: #d5d5d5;
+            color: white;
+            font-family: sans-serif;
+        }
+        .thanks {
+            background: green;
+            width: 60%;
+            margin: 80px auto;
+            padding: 80px;
+            text-align: center;
+            border: 5px solid #ffffff;
+        }
+        h1 {
+            padding-top: 0;
+            margin-top: 0;
+            font-size: 50px;
+        }
+        p {
+            font-size: 25px;
+            margin-bottom: 0;
+        }
+    </style>
 
-    <p>Номер вашего заказа: #{{order_number}}</p>
+    <script>
+        $(document).ready(function(){
+            var $thanks = $('div.thanks');
+            var margin = (parseInt($('body').height()) - parseInt($thanks.outerHeight()))/2;
+            $thanks.css('margin-top',margin+'px');
+        });
+    </script>
+</head>
+<body>
+<div class="thanks">
+    <h1>Спасибо за ваш заказ!</h1>
+    <p>
+        Номер вашего заказа #{{order_number}}
+    </p>
+    <p>
+        Наши операторы свяжутся с вами в ближайшее время для уточнения подробностей вашего заказа
+    </p>
 </div>
+<!-- Offer Conversion: «Power Balance» - энергетический браслет -->
+<img src="http://in.adclk.ru/SLLi?adv_sub=нет" width="1" height="1" />
+<!-- // End Offer Conversion -->
+</body>
+</html>

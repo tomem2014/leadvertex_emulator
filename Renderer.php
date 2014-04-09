@@ -10,7 +10,7 @@ class Renderer {
   private $_price;
   private $_oldPrice;
 
-  const VERSION = 2.31;
+  const VERSION = 2.4;
 
   function __construct($data = array(), $fields = array(), $form = array(), $buttonText = 'Оформить заказ')
   {
@@ -196,12 +196,12 @@ class Renderer {
       $this->scripts[$filename] = $filename;
     }
   }
-  public function formRender($number)
+  public function formRender($number,$no_css = true)
   {
     $form = $this->form;
     $fields = $this->fields;
 
-    $html = '<form id="lv-form'.$number.'" class="lv-order-form" action="" method="post">';
+    $html = '<form id="lv-form'.$number.'" class="lv-order-form'.($no_css ? '' : ' lv-order-form-css').'" action="/success.html" method="post">';
 
     foreach ($fields as $field) {
       $name = $form[$field]['name'];
@@ -364,16 +364,17 @@ class Renderer {
   {
     $forms = array();
     $object = &$this;
-    $this->_html = preg_replace_callback('~\{\{form(?:_?(\d{1}))?\}\}~i', function ($matches) use (&$forms, $object) {
+    $this->_html = preg_replace_callback('~\{\{form(?:_?(\d{1}))?(?:\|(no_css))?\}\}~i', function ($matches) use (&$forms, $object) {
       if (isset($matches[1])) {
         $number = $matches[1];
         if ($number < 2) $number = 1;
         if (in_array($number, $forms)) $number = max($forms) + 1;
       } elseif (count($forms) > 0) $number = max($forms) + 1;
       else $number = 1;
+      $noCss = isset($matches[2]);
       $forms[] = $number;
       if ($number == 1) $number = '';
-      return $object->formRender($number);
+      return $object->formRender($number,$noCss);
     }, $this->_html);
     if (!empty($forms)) {
       $this->registerFile('/assets/jquery-1.9.1.js',true);
