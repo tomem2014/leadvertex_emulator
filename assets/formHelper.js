@@ -3,6 +3,9 @@ if (!window.leadvertex.selling) window.leadvertex.selling = {};
 if (!window.leadvertex.selling.delivery) window.leadvertex.selling.delivery = {};
 if (!window.leadvertex.selling.discount) window.leadvertex.selling.discount = {};
 if (!window.leadvertex.selling.price) window.leadvertex.selling.price = {};
+if (!window.leadvertex.selling.quantity) window.leadvertex.selling.quantity = 0;
+if (!window.leadvertex.selling.additional) window.leadvertex.selling.additional = {};
+if (!window.leadvertex.selling.additionalSum) window.leadvertex.selling.additionalSum = 0;
 
 window.leadvertex.form = {};
 
@@ -92,9 +95,33 @@ $(document).ready(function(){
         if (position == 'after') $element.after($(e));
     });
 
-    var $quantity = $('.lv-input-quantity');
-    $quantity.change(function(){
-        var quantity = parseInt($(this).val());
+
+
+    function calcAdditionalSum()
+    {
+        window.leadvertex.selling.additionalSum = 0;
+        for (var i in window.leadvertex.selling.additional)
+            window.leadvertex.selling.additionalSum+= window.leadvertex.selling.additional[i];
+        return parseInt(window.leadvertex.selling.additionalSum);
+    }
+
+    //Обновляем выпадающие списки на всех формах, т.к. именно они формируют цены
+    $('.lv-order-form select').change(function(){
+        $('.lv-order-form select.'+$(this).attr('class')).val($(this).val());
+        reCalc();
+    });
+
+    $('.lv-order-form select').not('.lv-input-quantity').change(function(){
+        window.leadvertex.selling.additional[$(this).attr('class')] = $(this).find('option:selected').attr('data-sum');
+        $('.lv-multi-price').text(window.leadvertex.selling.price['price']+calcAdditionalSum());
+        reCalc();
+    });
+
+    function reCalc(){
+        var $quantity = $('.lv-input-quantity');
+        var quantity = window.leadvertex.selling.quantity;
+        if ($quantity.length>0) quantity = parseInt($quantity.val());
+
         var deliveryObject = window.leadvertex.selling.delivery;
         var discountObject = window.leadvertex.selling.discount;
 
@@ -107,7 +134,7 @@ $(document).ready(function(){
         } else delivery = deliveryPrice;
 
         //Итого
-        var price = parseInt(window.leadvertex.selling.price['price']);
+        var price = parseInt(window.leadvertex.selling.price['price']) + calcAdditionalSum();
         var discountPercent = 0;
         var discountRound = true;
         if (discountObject[quantity]) {
@@ -133,6 +160,5 @@ $(document).ready(function(){
         $('.lv-quantity-discount-sum').text(parseInt(discountSum));
         $('.lv-quantity-discount-percent').text(parseInt(discountPercent));
         $('.lv-total-price').text(parseInt(delivery)+parseFloat(price));
-    });
-    $quantity.change();
+    };
 });

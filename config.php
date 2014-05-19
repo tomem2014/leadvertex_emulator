@@ -136,12 +136,12 @@ $form = array(
     'pattern' => '',
   ),
   'additional1' => array(
-    'name' => 'Доп.поле #1',
+    'name' => 'Комплектация',
     'message' => 'Доп.поле #1 заполненно неверно',
     'error' => false,
     'required' => false,
-    'type' => 'string',
-    'pattern' => '',
+    'type' => 'dropdown',
+    'pattern' => 'Базовая, Расширенная {{1000}}, Топовая {{3500}}',
   ),
   'additional2' => array(
     'name' => 'Доп.поле #2',
@@ -173,4 +173,4 @@ $form = array(
 $buttonText = 'Оформить заказ';
 
 //Какие поля и в каком порядке будут отображены на форме
-$fields = array('fio','country','city','address','phone','quantity');
+$fields = array('fio','city','address','phone','quantity','additional1');

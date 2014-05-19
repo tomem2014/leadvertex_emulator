@@ -37,13 +37,23 @@
             font-size: 25px;
             margin-bottom: 0;
         }
+        ul>li {
+            text-align: left;
+        }
+        ul>li a {
+            color: white
+        }
+        hr {
+            padding: 0;
+            margin: 25px 0;
+        }
     </style>
 
     <script>
         $(document).ready(function(){
             var $thanks = $('div.thanks');
             var margin = (parseInt($('body').height()) - parseInt($thanks.outerHeight()))/2;
-            $thanks.css('margin-top',margin+'px');
+            if (margin>0) $thanks.css('margin-top',margin+'px');
         });
     </script>
 </head>
@@ -56,9 +66,15 @@
     <p>
         Наши операторы свяжутся с вами в ближайшее время для уточнения подробностей вашего заказа
     </p>
+    <hr/>
+    <p>
+        Рекомендуем ознакомиться с другими нашими офферами:
+    <ul>
+        <li><a href="http://example-1.leadvertex.info/{{upsell}}">Оффер для продажи физических товаров</a></li>
+        <li><a href="http://example-2.leadvertex.info/{{upsell}}">Посадочная страница для сбора данных клиентов</a></li>
+        <li><a href="http://example-3.leadvertex.info/{{upsell}}">Оффер для продажи инфо-товаров, которые можно скачать сразу после оплаты</a></li>
+    </ul>
+    </p>
 </div>
-<!-- Offer Conversion: «Power Balance» - энергетический браслет -->
-<img src="http://in.adclk.ru/SLLi?adv_sub=нет" width="1" height="1" />
-<!-- // End Offer Conversion -->
 </body>
 </html>

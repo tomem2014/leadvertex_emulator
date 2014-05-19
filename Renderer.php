@@ -9,8 +9,10 @@ class Renderer {
   private $_html;
   private $_price;
   private $_oldPrice;
+  private $_fields;
+  private $_options = [];
 
-  const VERSION = 2.4;
+  const VERSION = 2.5;
 
   function __construct($data = array(), $fields = array(), $form = array(), $buttonText = 'Оформить заказ')
   {
@@ -201,7 +203,7 @@ class Renderer {
     $form = $this->form;
     $fields = $this->fields;
 
-    $html = '<form id="lv-form'.$number.'" class="lv-order-form'.($no_css ? '' : ' lv-order-form-css').'" action="/success.html" method="post">';
+    $html = '<form id="lv-form'.$number.'" class="lv-order-form'.($no_css ? '' : ' lv-order-form-css').'" data-form-number="'.$number.'" action="/success.html" method="post">';
 
     foreach ($fields as $field) {
       $name = $form[$field]['name'];
@@ -228,8 +230,16 @@ class Renderer {
           $items = explode(',',$pattern);
           foreach ($items as $item) {
             $item = trim($item);
-            if ($field == 'quantity') $item = $item.$form[$field]['unit'];
-            $html.='<option>'.$item.'</option>';
+            if ($field == 'quantity') $item = $item . $form[$field]['unit'];
+            $matches = [];
+            $sum = 0;
+            if (preg_match('~\{\{(\d+)\}\}~', $item, $matches)) {
+              $value = str_replace('{{' . $matches[1] . '}}', '', $item);
+              $item = str_replace('{{' . $matches[1] . '}}', ' (+' . $matches[1] . ' руб.)', $item);
+              $item = trim(str_replace('  ', ' ', $item));
+              $sum = $matches[1];
+            } else $value = $item;
+            $html .= '<option value="'.trim($value).'" data-sum="'.$sum.'">' . $item . '</option>';
           }
           $html.='</select>';
         }
@@ -288,7 +298,7 @@ class Renderer {
     }
   }
   private function tagPrice($tag,$sumPrice) {
-    if (preg_match_all('~(?:\{\{(?:'.$tag.')(?:(\+|\-)(\d+)(%)?)?\}\})~ui', $this->_html, $prices_all, PREG_SET_ORDER) > 0) {
+      if (preg_match_all('~(?:\{\{(?:'.$tag.')(?:(\+|\-)(\d+)(%)?)?(?: (\w+)="([^"]{1,200})")?\}\})~ui', $this->_html, $prices_all, PREG_SET_ORDER) > 0) {
         foreach ($prices_all as $matches) {
           $price = $sumPrice;
           if (isset($matches[1])) {
@@ -297,22 +307,28 @@ class Renderer {
             if ($matches[1] == '-') $price = $price - $sum;
             else $price = $price + $sum;
           }
-          if ($tag == 'total_price') $price = '<span class="lv-total-price">'.$price.'</span>';
+          if (isset($matches[4]) && isset($matches[5]))
+            if (isset($this->_options[$matches[4]]) && isset($this->_options[$matches[4]][$matches[5]]))
+              if ($tag == 'price_option') $price = $this->_options[$matches[4]][$matches[5]];
+              else $price += $this->_options[$matches[4]][$matches[5]];
+
+          if ($tag == 'total_price|price_total') $price = '<span class="lv-total-price">' . $price . '</span>';
+          if ($tag == 'price_multi') $price = '<span class="lv-multi-price">' . $price . '</span>';
           $this->_html = str_ireplace($matches[0], $price, $this->_html);
         }
       }
   }
   private function tagDeliveryPrice()
   {
-    if (preg_match_all('~(?:\{\{delivery_price(?:=(\d+))?\}\})~ui', $this->_html, $matches_all, PREG_SET_ORDER) > 0) {
-        foreach ($matches_all as $matches) {
-          $isSetQuantity = isset($matches[1]) && !empty($matches[1]);
-          $price = $isSetQuantity ? ($this->data['delivery_for_each'] ? $this->data['delivery_price']*$matches[1] : $this->data['delivery_price']) : $this->data['delivery_price'];
-          if ($isSetQuantity) $replace = $price;
-          else $replace = '<span class="lv-delivery-price">'.$price.'</span>';
-          $this->_html = str_ireplace($matches[0], $replace, $this->_html);
-        }
+    if (preg_match_all('~(?:\{\{(?:delivery_price|price_delivery)(?:=(\d+))?\}\})~ui', $this->_html, $matches_all, PREG_SET_ORDER) > 0) {
+      foreach ($matches_all as $matches) {
+        $isSetQuantity = isset($matches[1]) && !empty($matches[1]);
+        $price = $isSetQuantity ? ($this->data['delivery_for_each'] ? $this->data['delivery_price'] * $matches[1] : $this->data['delivery_price']) : $this->data['delivery_price'];
+        if ($isSetQuantity) $replace = $price;
+        else $replace = '<span class="lv-delivery-price">' . $price . '</span>';
+        $this->_html = str_ireplace($matches[0], $replace, $this->_html);
       }
+    }
   }
   private function tagDiffPrice()
   {
@@ -456,8 +472,10 @@ class Renderer {
     $this->tagJquery();
     $this->tagCountdownJs();
     $this->tagPrice('price',$this->data['price']);
-    $this->tagPrice('oldPrice|old_price',$this->data['old_price']);
-    $this->tagPrice('total_price',$this->data['price']*$this->data['quantity']);
+    $this->tagPrice('price_multi',$this->data['price']);
+    $this->tagPrice('price_option',$this->data['price']);
+    $this->tagPrice('oldPrice|old_price|price_old',$this->data['old_price']);
+    $this->tagPrice('total_price|price_total',$this->data['price']*$this->data['quantity']);
     $this->tagDiffPrice();
     $this->tagDeliveryPrice();
     $this->tagQuantityDiscount();
